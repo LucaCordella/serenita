@@ -1,0 +1,17 @@
+# Node / JS
+node_modules/
+dist/
+build/
+npm-debug.log
+yarn-error.log
+
+# IDEs
+.vscode/
+.idea/
+
+# System
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
