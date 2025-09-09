@@ -1,0 +1,36 @@
+# Node / JS
+node_modules/
+dist/
+build/
+npm-debug.log
+yarn-error.log
+
+# IDEs
+.vscode/
+.idea/
+
+# System
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS metadata
+.sass-cache
+.cache/
+
+# Logs
+logs/
+*.log
+
+# Python (se no futuro)
+__pycache__/
+*.pyc
+
+# Misc
+.AppleDouble
+.LSOverride
+*.swp
