@@ -1,0 +1,29 @@
+:root {
+  /* Backgrounds */
+  --bg-primary: #0f172a;   /* slate-900 */
+  --bg-secondary: #1e293b; /* slate-800 */
+  --bg-tertiary: #334155;  /* slate-700 */
+  --bg-quaternary: #475569;/* slate-600 */
+
+  /* Text */
+  --text-primary: #f8fafc; /* slate-50 */
+  --text-secondary: #e2e8f0; /* slate-200 */
+  --text-tertiary: #cbd5e1;  /* slate-300 */
+  --text-muted: #94a3b8;    /* slate-400 */
+  --text-disabled: #64748b; /* slate-500 */
+
+  /* Primary (Teal) */
+  --teal-600: #0d9488; /* primary */
+  --teal-500: #14b8a6; /* hover */
+  --teal-300: #5eead4;
+  --teal-200: #99f6e4;
+
+  /* Borders */
+  --border-primary: #334155;   /* slate-700 */
+  --border-secondary: #475569; /* slate-600 */
+
+  /* Misc */
+  --radius: 10px;
+  --glass: rgba(255,255,255,0.03);
+  --card-bg: var(--bg-tertiary);
+}
