@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Serenità — Login</title>
+
+  <!-- design tokens (variáveis) -->
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <!-- page specific -->
+  <link rel="stylesheet" href="../styles/login.css">
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-card" role="main" aria-labelledby="auth-title">
+      <div class="auth-top">
+        <!-- Logo: use your SVG in public/assets/images/logo-serenita.svg -->
+        <div class="logo-round" aria-hidden="true">
+          <img src="/public/assets/images/logo-serenita.svg" alt="Serenità" onerror="this.style.display='none'">
+          <span class="logo-fallback" aria-hidden="true">S</span>
+        </div>
+        <h1 id="auth-title" class="auth-title">Serenità</h1>
+        <p class="auth-sub">Seu companheiro diário para acompanhamento de saúde mental e autocuidado</p>
+      </div>
+
+      <form id="loginForm" class="auth-form" novalidate>
+        <label for="email" class="form-label">E-mail</label>
+        <div class="input-wrap">
+          <span class="input-icon" aria-hidden="true">✉️</span>
+          <input id="email" name="email" type="email" inputmode="email"
+                 placeholder="seu@email.com"
+                 autocomplete="email"
+                 required
+                 class="input-field"/>
+        </div>
+        <div id="emailError" class="field-error" aria-live="polite"></div>
+
+        <label for="password" class="form-label">Senha <a href="#" class="link-muted small float-right" id="forgotLink">Esqueceu a senha?</a></label>
+        <div class="input-wrap">
+          <span class="input-icon" aria-hidden="true">🔒</span>
+          <input id="password" name="password" type="password"
+                 placeholder="••••••••"
+                 autocomplete="current-password"
+                 required
+                 minlength="6"
+                 class="input-field"/>
+          <button type="button" id="togglePwd" class="pwd-toggle" aria-label="Mostrar senha">👁️</button>
+        </div>
+        <div id="pwdError" class="field-error" aria-live="polite"></div>
+
+        <button id="submitBtn" type="submit" class="btn btn-primary full" disabled>Entrar</button>
+
+        <div class="separator"><span>Ou continue com</span></div>
+
+        <!-- Removed Google option per request. Keeping a neutral placeholder area -->
+        <div class="social-placeholder">
+          <!-- empty by design -->
+        </div>
+
+        <p class="muted small center">Não tem uma conta? <a href="../pages/signup.html" class="link-accent">Cadastre-se</a></p>
+
+        <div id="feedback" class="feedback" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+
+  <script src="../pages/login.js"></script>
+</body>
+</html>
