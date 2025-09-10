@@ -1,0 +1,53 @@
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+/* Card */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius);
+  padding: 16px;
+  color: var(--text-secondary);
+}
+
+/* Primary Button */
+.btn-primary {
+  background: linear-gradient(90deg, var(--teal-600), var(--teal-300));
+  color: #001; /* texto escuro sobre teal claro */
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  transition: transform .12s ease, box-shadow .12s ease;
+  box-shadow: 0 6px 16px rgba(13,148,136,0.12);
+}
+.btn-primary:hover {
+  background: linear-gradient(90deg, var(--teal-500), var(--teal-300));
+  transform: translateY(-2px);
+}
+.btn-primary:focus {
+  outline: 3px solid rgba(20,184,166,0.18);
+  outline-offset: 2px;
+}
+.btn-primary:disabled {
+  background: linear-gradient(90deg, #2b3742, #27323b);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Outline Button */
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border-secondary);
+  color: var(--text-primary);
+}
+
+/* Muted text / captions */
+.caption { color: var(--text-muted); font-size: .9rem; }
+
+/* Small card border example */
+.card--muted { border: 1px solid var(--border-secondary); background: rgba(255,255,255,0.02); }
