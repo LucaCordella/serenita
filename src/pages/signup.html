@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Serenità — Criar conta</title>
+
+  <!-- design tokens (variáveis) -->
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <!-- page specific -->
+  <link rel="stylesheet" href="../styles/signup.css">
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-card" role="main" aria-labelledby="auth-title">
+      <div class="auth-top">
+        <!-- Logo: use same asset as login -->
+        <div class="logo-round" aria-hidden="true">
+          <img src="/public/assets/images/logo-serenita.svg" alt="Serenità" onerror="this.style.display='none'">
+          <span class="logo-fallback" aria-hidden="true">S</span>
+        </div>
+
+        <h1 id="auth-title" class="auth-title">Serenità</h1>
+        <p class="auth-sub">Bem-vindo(a) ao Serenità. Para começar sua jornada de serenidade, preencha seus dados. É rápido e fácil.</p>
+      </div>
+
+      <form id="signupForm" class="auth-form" novalidate>
+        <div class="row-2" style="gap:12px; display:flex; margin-bottom:6px;">
+          <div style="flex:1">
+            <label for="firstName" class="form-label">Nome</label>
+            <div class="input-wrap">
+              <input id="firstName" name="firstName" type="text" placeholder="Seu nome" autocomplete="given-name" required class="input-field"/>
+            </div>
+            <div id="firstNameError" class="field-error" aria-live="polite"></div>
+          </div>
+
+          <div style="flex:1">
+            <label for="lastName" class="form-label">Sobrenome</label>
+            <div class="input-wrap">
+              <input id="lastName" name="lastName" type="text" placeholder="Seu sobrenome" autocomplete="family-name" required class="input-field"/>
+            </div>
+            <div id="lastNameError" class="field-error" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <label for="email" class="form-label">E-mail</label>
+        <div class="input-wrap">
+          <span class="input-icon" aria-hidden="true">✉️</span>
+          <input id="email" name="email" type="email" inputmode="email"
+                 placeholder="seu@email.com"
+                 autocomplete="email"
+                 required
+                 class="input-field"/>
+        </div>
+        <div id="emailError" class="field-error" aria-live="polite"></div>
+
+        <label for="password" class="form-label">Senha</label>
+        <div class="input-wrap" style="position:relative;">
+          <span class="input-icon" aria-hidden="true">🔒</span>
+          <input id="password" name="password" type="password"
+                 placeholder="••••••••"
+                 autocomplete="new-password"
+                 required
+                 minlength="6"
+                 class="input-field"/>
+          <button type="button" id="togglePwd" class="pwd-toggle" aria-label="Mostrar senha">👁️</button>
+        </div>
+        <div id="pwdError" class="field-error" aria-live="polite"></div>
+
+        <label for="confirmPassword" class="form-label">Confirmar senha</label>
+        <div class="input-wrap" style="position:relative;">
+          <span class="input-icon" aria-hidden="true">🔒</span>
+          <input id="confirmPassword" name="confirmPassword" type="password"
+                 placeholder="Repita a senha"
+                 autocomplete="new-password"
+                 required
+                 minlength="6"
+                 class="input-field"/>
+          <button type="button" id="togglePwdConfirm" class="pwd-toggle" aria-label="Mostrar senha">👁️</button>
+        </div>
+        <div id="confirmPwdError" class="field-error" aria-live="polite"></div>
+
+        <button id="submitBtn" type="submit" class="btn btn-primary full" disabled>Criar conta</button>
+
+        <!-- intentionally removed Google/terms per spec; keep a neutral spacer similar to login -->
+        <div style="height:12px"></div>
+
+        <p class="muted small center">Já tem uma conta? <a href="../pages/login.html" class="link-accent">Entrar</a></p>
+
+        <div id="feedback" class="feedback" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+
+  <script src="../pages/signup.js"></script>
+</body>
+</html>
