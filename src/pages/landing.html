@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Serenità</title>
+
+  <!-- design tokens (variáveis) -->
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <!-- page specific -->
+  <link rel="stylesheet" href="../styles/landing.css">
+</head>
+<body>
+
+  <!-- Header (fixo) -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="/" class="brand-link">
+        <div class="logo-round" aria-hidden="true">
+          <span class="logo-fallback">S</span>
+        </div>
+        <span class="brand-text">Serenità</span>
+      </a>
+
+      <nav class="main-nav" role="navigation" aria-label="Principal">
+        <ul class="nav-list">
+          <li><a href="../pages/login.html" class="nav-link">Entrar</a></li>
+          <li><a href="../pages/signup.html" class="btn btn-cta">Começar Agora</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero (fullscreen) -->
+  <main class="hero" role="main">
+    <section class="hero-inner">
+      <div class="hero-badge">S</div>
+      <div class="hero-subbadge">✨ Bem-estar Mental Inteligente ✨</div>
+
+      <h1 class="hero-title">
+        Sua jornada para uma <span class="accent">mente saudável</span>
+      </h1>
+
+      <p class="hero-desc">
+        Acompanhe seu humor, registre sintomas, descubra padrões e construa hábitos saudáveis com o poder da tecnologia e ciência comportamental.
+      </p>
+
+      <div class="hero-cta">
+        <a class="btn btn-primary cta-large" href="../pages/signup.html">Começar Gratuitamente →</a>
+      </div>
+
+      <ul class="trust-list">
+        <li>● 100% Gratuito</li>
+        <li>● Dados Seguros</li>
+        <li>● Baseado em Ciência</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Features -->
+  <section class="section features">
+    <div class="container">
+      <h2 class="section-title">Funcionalidades Principais</h2>
+      <p class="section-sub">Ferramentas essenciais para cuidar da sua saúde mental de forma científica e eficaz</p>
+
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-icon">🙂</div>
+          <h3 class="card-title">Diário do Humor</h3>
+          <p class="card-desc">Registre suas emoções diárias e descubra padrões no seu bem-estar emocional.</p>
+          <div class="card-cta">Acompanhe 12+ emoções diferentes</div>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">❤️</div>
+          <h3 class="card-title">Registro de Sintomas</h3>
+          <p class="card-desc">Monitore sintomas físicos e mentais para identificar gatilhos e tendências importantes.</p>
+          <div class="card-cta">Categorias: Físico, Mental, Sono, Energia</div>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">🧠</div>
+          <h3 class="card-title">Autoavaliações</h3>
+          <p class="card-desc">Questionários validados cientificamente para melhor autoconhecimento e acompanhamento.</p>
+          <div class="card-cta">Baseado em escalas psicológicas</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="section benefits">
+    <div class="container">
+      <h2 class="section-title">Por que escolher o Serenità?</h2>
+      <p class="section-sub">Uma abordagem completa e científica para o cuidado da sua saúde mental</p>
+
+      <div class="cards-grid">
+        <article class="card small">
+          <div class="card-icon">🔒</div>
+          <h3 class="card-title">Privacidade Total</h3>
+          <p class="card-desc">Seus dados são criptografados e mantidos em total segurança. Você tem controle completo.</p>
+        </article>
+
+        <article class="card small">
+          <div class="card-icon">💡</div>
+          <h3 class="card-title">Monitoramento Inteligente</h3>
+          <p class="card-desc">Padrões de humor detectados com ferramentas baseadas em evidências científicas.</p>
+        </article>
+
+        <article class="card small">
+          <div class="card-icon">🤝</div>
+          <h3 class="card-title">Suporte para Ansiedade</h3>
+          <p class="card-desc">Recursos e estratégias para identificar gatilhos e desenvolver enfrentamento eficaz.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="brand-sm">
+        <div class="logo-round"><span class="logo-fallback">S</span></div>
+        <span>Serenità</span>
+      </div>
+      <div class="copyright">© 2024 Serenità. Desenvolvido por Luca Cordella.</div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="backToTop" class="back-to-top" aria-label="Voltar ao topo">↑</button>
+
+  <script src="../pages/landing.js" defer></script>
+</body>
+</html>

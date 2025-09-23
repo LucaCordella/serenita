@@ -51,3 +51,45 @@ body {
 
 /* Small card border example */
 .card--muted { border: 1px solid var(--border-secondary); background: rgba(255,255,255,0.02); }
+
+/* Back to landing (shared) */
+.link-back-landing {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:var(--text-muted);
+  text-decoration:none;
+  font-size:13px;
+  padding:8px 10px;
+  border-radius:8px;
+  transition: background .12s ease, color .12s ease, transform .06s ease;
+}
+
+.link-back-landing:hover {
+  background: rgba(255,255,255,0.02);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+/* Variant: button style (same look as CTAs but small) */
+.btn-back-landing {
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:8px;
+  font-weight:600;
+  background: linear-gradient(90deg, #14b8a6, #06b6d4);
+  color:#001;
+  text-decoration:none;
+  box-shadow: 0 8px 18px rgba(16,185,129,0.10);
+  font-size:14px;
+}
+
+/* Small helper to align link under form */
+.form-bottom-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-top:14px;
+  flex-wrap:wrap;
+}
