@@ -1,0 +1,40 @@
+{
+  "name": "serenita",
+  "version": "1.0.0",
+  "description": "Projeto Serenità — plataforma web para monitoramento e gerenciamento da saúde mental.\r **Status:** Preparando infra / pronto para desenvolvimento de front-end.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucaCordella/serenita.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucaCordella/serenita/issues"
+  },
+  "homepage": "https://github.com/LucaCordella/serenita#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "scrpts": {
+    "dev": "nodemon src/server.js"
+  }
+}

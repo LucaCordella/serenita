@@ -79,36 +79,43 @@
     el.addEventListener('input', validate);
   });
 
-  // form submit (mock)
-  if (form) {
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      if(!validate()) return;
+// --- submit handler (substituir o submit antigo) ---
+form.addEventListener('submit', async function (e) {
+  e.preventDefault();
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Registrando...';
-      feedback.textContent = '';
+  // coleta valores (ajuste ids se forem diferentes)
+  const payload = {
+    firstName: (document.getElementById('firstName') || {}).value || '',
+    lastName: (document.getElementById('lastName') || {}).value || '',
+    email: (document.getElementById('email') || {}).value || '',
+    password: (document.getElementById('password') || {}).value || ''
+  };
 
-      const payload = {
-        firstName: firstNameEl.value.trim(),
-        lastName: lastNameEl.value.trim(),
-        email: emailEl.value.trim(),
-        password: pwdEl.value
-      };
+  try {
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Registrando...'; }
 
-      // fallback behavior (mock server)
-      setTimeout(() => {
-        // success criteria: simple acceptance for testing
-        feedback.style.color = 'var(--teal-300)';
-        feedback.textContent = 'Cadastro realizado com sucesso. Você será redirecionado para entrar.';
-        console.log('Signup payload (modo teste):', payload);
-
-        setTimeout(() => {
-          window.location.href = "../pages/login.html"; // volta para login (ajuste conforme estrutura)
-        }, 900);
-      }, 700);
+    const res = await fetch('http://localhost:4000/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Erro no cadastro');
+
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+
+    // sucesso: redireciona para login (ou hub futuramente)
+    setTimeout(()=> window.location.href = "../pages/login.html", 900);
+  } catch (err) {
+    console.error('Signup error:', err);
+    const feedbackEl = document.getElementById('feedback');
+    if (feedbackEl) { feedbackEl.style.color = '#ffb4c0'; feedbackEl.textContent = err.message || 'Erro no cadastro'; }
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Criar conta'; }
   }
+});
+
+
 
   // initial validation attempt
   validate();
