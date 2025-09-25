@@ -45,33 +45,42 @@
   emailEl.addEventListener('input', validate);
   pwdEl.addEventListener('input', validate);
 
-  // mock auth on submit
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    if(!validate()) return;
+// --- submit handler (substituir o submit antigo) ---
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+  // se você tiver uma função validate() mantenha-a, caso contrário comente a linha abaixo
+  if (typeof validate === 'function' && !validate()) return;
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Entrando...';
-    feedback.textContent = '';
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Entrando...';
+  if (feedback) feedback.textContent = '';
 
-    const payload = { email: emailEl.value.trim(), password: pwdEl.value };
+  const payload = { email: (emailEl && emailEl.value || '').trim(), password: (pwdEl && pwdEl.value || '') };
 
-    // mock server latency
-    setTimeout(() => {
-      // mock success when email contains "demo" or any valid non-empty creds
-      if(payload.email.includes('demo') || payload.email.length>5){
-        feedback.style.color = 'var(--teal-300)';
-        feedback.textContent = 'Login realizado com sucesso. Redirecionando...';
-        // redirect (mock)
-        setTimeout(()=>{ window.location.href = "../index.html"; }, 900);
-      } else {
-        feedback.style.color = '#ffb4c0';
-        feedback.textContent = 'E-mail ou senha inválidos.';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Entrar';
-      }
-    }, 700);
-  });
+  try {
+    const res = await fetch('http://localhost:4000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Erro no login');
+
+    // salvar token + user
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+
+    if (feedback) { feedback.style.color = 'var(--teal-300)'; feedback.textContent = 'Login realizado com sucesso. Redirecionando...'; }
+    setTimeout(()=>{ window.location.href = "../index.html"; }, 900);
+  } catch(err) {
+    if (feedback) { feedback.style.color = '#ffb4c0'; feedback.textContent = err.message || 'E-mail ou senha inválidos.'; }
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Entrar';
+    console.error('Login error:', err);
+  }
+});
+
+
 
   // initial validation attempt
   validate();
