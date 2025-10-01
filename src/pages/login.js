@@ -71,7 +71,7 @@ form.addEventListener('submit', async function(e){
     localStorage.setItem('user', JSON.stringify(data.user));
 
     if (feedback) { feedback.style.color = 'var(--teal-300)'; feedback.textContent = 'Login realizado com sucesso. Redirecionando...'; }
-    setTimeout(()=>{ window.location.href = "../index.html"; }, 900);
+    setTimeout(()=>{ window.location.href = "dashboard.html"; }, 900);
   } catch(err) {
     if (feedback) { feedback.style.color = '#ffb4c0'; feedback.textContent = err.message || 'E-mail ou senha inválidos.'; }
     submitBtn.disabled = false;
