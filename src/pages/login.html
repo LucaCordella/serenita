@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Serenità — Login</title>
-
+  <title>Serenità · Login</title>
   <!-- design tokens (variáveis) -->
   <link rel="stylesheet" href="../styles/variables.css">
   <link rel="stylesheet" href="../styles/base.css">
   <link rel="stylesheet" href="../styles/components.css">
   <!-- page specific -->
   <link rel="stylesheet" href="../styles/login.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <main class="auth-page">
     <section class="auth-card" role="main" aria-labelledby="auth-title">
       <div class="auth-top">
-        <!-- Logo: use your SVG in public/assets/images/logo-serenita.svg -->
+        <!-- Logo -->
         <div class="logo-round" aria-hidden="true">
           <img src="/public/assets/images/logo-serenita.svg" alt="Serenità" onerror="this.style.display='none'">
           <span class="logo-fallback" aria-hidden="true">S</span>
@@ -28,25 +29,29 @@
       <form id="loginForm" class="auth-form" novalidate>
         <label for="email" class="form-label">E-mail</label>
         <div class="input-wrap">
-          <span class="input-icon" aria-hidden="true">✉️</span>
+          <i data-lucide="mail" class="input-icon"></i>
           <input id="email" name="email" type="email" inputmode="email"
-                 placeholder="seu@email.com"
-                 autocomplete="email"
-                 required
-                 class="input-field"/>
+            placeholder="seu@email.com"
+            autocomplete="email"
+            required
+            class="input-field"/>
         </div>
         <div id="emailError" class="field-error" aria-live="polite"></div>
 
-        <label for="password" class="form-label">Senha <a href="#" class="link-muted small float-right" id="forgotLink">Esqueceu a senha?</a></label>
+        <label for="password" class="form-label">Senha 
+          <a href="#" class="link-muted small float-right" id="forgotLink">Esqueceu a senha?</a>
+        </label>
         <div class="input-wrap">
-          <span class="input-icon" aria-hidden="true">🔒</span>
+          <i data-lucide="lock" class="input-icon"></i>
           <input id="password" name="password" type="password"
-                 placeholder="••••••••"
-                 autocomplete="current-password"
-                 required
-                 minlength="6"
-                 class="input-field"/>
-          <button type="button" id="togglePwd" class="pwd-toggle" aria-label="Mostrar senha">👁️</button>
+            placeholder="••••••••"
+            autocomplete="current-password"
+            required
+            minlength="6"
+            class="input-field"/>
+          <button type="button" id="togglePwd" class="pwd-toggle" aria-label="Mostrar senha">
+            <i data-lucide="eye" class="toggle-icon"></i>
+          </button>
         </div>
         <div id="pwdError" class="field-error" aria-live="polite"></div>
 
@@ -54,18 +59,19 @@
 
         <div class="separator"><span>Ou continue com</span></div>
 
-        <!-- Removed Google option per request. Keeping a neutral placeholder area -->
-        <div class="social-placeholder">
-          <!-- empty by design -->
-        </div>
+        <!-- Placeholder vazio -->
+        <div class="social-placeholder"></div>
 
         <div class="form-bottom-row">
-          <!-- link discreto para voltar à landing -->
-          <a href="../pages/landing.html" class="link-back-landing" title="Voltar à página inicial">← Voltar à página inicial</a>
-
-          <!-- manter sugestão de cadastro ao lado / ou centralizado se houver espaço -->
+          <!-- Link para voltar à landing -->
+          <a href="../pages/landing.html" class="link-back-landing" title="Voltar à página inicial">
+            <i data-lucide="arrow-left" class="icon-back"></i>
+            Voltar à página inicial
+          </a>
+          
+          <!-- Sugestão de cadastro -->
           <p class="muted small center" style="margin:0;">
-          Não tem uma conta? <a href="../pages/signup.html" class="link-accent">Cadastre-se</a>
+            Não tem uma conta? <a href="../pages/signup.html" class="link-accent">Cadastre-se</a>
           </p>
         </div>
 
@@ -75,5 +81,27 @@
   </main>
 
   <script src="../pages/login.js"></script>
+  <script>
+    // Inicializar ícones Lucide após o DOM carregar
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      
+      // Atualizar ícone do toggle de senha
+      const togglePwd = document.getElementById('togglePwd');
+      const passwordField = document.getElementById('password');
+      
+      if (togglePwd && passwordField) {
+        togglePwd.addEventListener('click', () => {
+          const icon = togglePwd.querySelector('.toggle-icon');
+          if (passwordField.type === 'password') {
+            icon.setAttribute('data-lucide', 'eye-off');
+          } else {
+            icon.setAttribute('data-lucide', 'eye');
+          }
+          lucide.createIcons();
+        });
+      }
+    });
+  </script>
 </body>
 </html>
