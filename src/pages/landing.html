@@ -4,16 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Serenità</title>
-
   <!-- design tokens (variáveis) -->
   <link rel="stylesheet" href="../styles/variables.css">
   <link rel="stylesheet" href="../styles/base.css">
   <link rel="stylesheet" href="../styles/components.css">
   <!-- page specific -->
   <link rel="stylesheet" href="../styles/landing.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-
   <!-- Header (fixo) -->
   <header class="site-header" role="banner">
     <div class="container header-inner">
@@ -23,7 +23,6 @@
         </div>
         <span class="brand-text">Serenità</span>
       </a>
-
       <nav class="main-nav" role="navigation" aria-label="Principal">
         <ul class="nav-list">
           <li><a href="../pages/login.html" class="nav-link">Entrar</a></li>
@@ -39,19 +38,15 @@
     <section class="hero-inner">
       <div class="hero-badge">S</div>
       <div class="hero-subbadge">✨ Bem-estar Mental Inteligente ✨</div>
-
       <h1 class="hero-title">
         Sua jornada para uma <span class="accent">mente saudável</span>
       </h1>
-
       <p class="hero-desc">
         Acompanhe seu humor, registre sintomas, descubra padrões e construa hábitos saudáveis com o poder da tecnologia e ciência comportamental.
       </p>
-
       <div class="hero-cta">
         <a class="btn btn-primary cta-large" href="../pages/signup.html">Começar Gratuitamente →</a>
       </div>
-
       <ul class="trust-list">
         <li>● 100% Gratuito</li>
         <li>● Dados Seguros</li>
@@ -65,28 +60,58 @@
     <div class="container">
       <h2 class="section-title">Funcionalidades Principais</h2>
       <p class="section-sub">Ferramentas essenciais para cuidar da sua saúde mental de forma científica e eficaz</p>
-
       <div class="cards-grid">
-        <article class="card">
-          <div class="card-icon">🙂</div>
+        
+        <!-- Card: Diário do Humor -->
+        <article class="card feature-card" data-color="mood">
+          <div class="card-icon-wrapper mood-icon">
+            <i data-lucide="smile" class="card-icon-lucide"></i>
+          </div>
           <h3 class="card-title">Diário do Humor</h3>
           <p class="card-desc">Registre suas emoções diárias e descubra padrões no seu bem-estar emocional.</p>
-          <div class="card-cta">Acompanhe 12+ emoções diferentes</div>
+          <div class="card-cta mood-color">Acompanhe 12 emoções diferentes</div>
         </article>
 
-        <article class="card">
-          <div class="card-icon">❤️</div>
+        <!-- Card: Registro de Sintomas -->
+        <article class="card feature-card" data-color="symptoms">
+          <div class="card-icon-wrapper symptoms-icon">
+            <i data-lucide="heart" class="card-icon-lucide"></i>
+          </div>
           <h3 class="card-title">Registro de Sintomas</h3>
           <p class="card-desc">Monitore sintomas físicos e mentais para identificar gatilhos e tendências importantes.</p>
-          <div class="card-cta">Categorias: Físico, Mental, Sono, Energia</div>
+          <div class="card-cta symptoms-color">Categorias: Físico, Mental, Sono, Energia</div>
         </article>
 
-        <article class="card">
-          <div class="card-icon">🧠</div>
-          <h3 class="card-title">Autoavaliações</h3>
-          <p class="card-desc">Questionários validados cientificamente para melhor autoconhecimento e acompanhamento.</p>
-          <div class="card-cta">Baseado em escalas psicológicas</div>
+        <!-- Card: Autocuidado -->
+        <article class="card feature-card" data-color="selfcare">
+          <div class="card-icon-wrapper selfcare-icon">
+            <i data-lucide="brain" class="card-icon-lucide"></i>
+          </div>
+          <h3 class="card-title">Autocuidado</h3>
+          <p class="card-desc">Questionários e estratégias para melhor autoconhecimento e acompanhamento contínuo.</p>
+          <div class="card-cta selfcare-color">Baseado em escalas psicológicas</div>
         </article>
+
+        <!-- Card: Tendências e Relatórios -->
+        <article class="card feature-card" data-color="trends">
+          <div class="card-icon-wrapper trends-icon">
+            <i data-lucide="trending-up" class="card-icon-lucide"></i>
+          </div>
+          <h3 class="card-title">Tendências e Relatórios</h3>
+          <p class="card-desc">Visualize seu progresso e padrões ao longo do tempo com gráficos detalhados e insights.</p>
+          <div class="card-cta trends-color">Análise de padrões e evolução</div>
+        </article>
+
+        <!-- Card: Autoavaliações -->
+        <article class="card feature-card" data-color="assessment">
+          <div class="card-icon-wrapper assessment-icon">
+            <i data-lucide="check-square" class="card-icon-lucide"></i>
+          </div>
+          <h3 class="card-title">Autoavaliações</h3>
+          <p class="card-desc">Faça autoavaliações psicológicas validadas cientificamente para melhor autoconhecimento.</p>
+          <div class="card-cta assessment-color">Questionários validados e confiáveis</div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -96,25 +121,32 @@
     <div class="container">
       <h2 class="section-title">Por que escolher o Serenità?</h2>
       <p class="section-sub">Uma abordagem completa e científica para o cuidado da sua saúde mental</p>
-
       <div class="cards-grid">
+        
         <article class="card small">
-          <div class="card-icon">🔒</div>
+          <div class="card-icon-simple">
+            <i data-lucide="lock" class="icon-benefit"></i>
+          </div>
           <h3 class="card-title">Privacidade Total</h3>
           <p class="card-desc">Seus dados são criptografados e mantidos em total segurança. Você tem controle completo.</p>
         </article>
 
         <article class="card small">
-          <div class="card-icon">💡</div>
+          <div class="card-icon-simple">
+            <i data-lucide="lightbulb" class="icon-benefit"></i>
+          </div>
           <h3 class="card-title">Monitoramento Inteligente</h3>
           <p class="card-desc">Padrões de humor detectados com ferramentas baseadas em evidências científicas.</p>
         </article>
 
         <article class="card small">
-          <div class="card-icon">🤝</div>
+          <div class="card-icon-simple">
+            <i data-lucide="hand-heart" class="icon-benefit"></i>
+          </div>
           <h3 class="card-title">Suporte para Ansiedade</h3>
           <p class="card-desc">Recursos e estratégias para identificar gatilhos e desenvolver enfrentamento eficaz.</p>
         </article>
+
       </div>
     </div>
   </section>
@@ -126,7 +158,7 @@
         <div class="logo-round"><span class="logo-fallback">S</span></div>
         <span>Serenità</span>
       </div>
-      <div class="copyright">© 2024 Serenità. Desenvolvido por Luca Cordella.</div>
+      <div class="copyright">© 2025 Serenità por Luca Cordella.</div>
     </div>
   </footer>
 
@@ -134,5 +166,11 @@
   <button id="backToTop" class="back-to-top" aria-label="Voltar ao topo">↑</button>
 
   <script src="../pages/landing.js" defer></script>
+  <script>
+    // Inicializar ícones Lucide após o DOM carregar
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
 </body>
 </html>

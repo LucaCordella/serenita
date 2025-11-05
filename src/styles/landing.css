@@ -1,5 +1,4 @@
 /* landing.css - segue tokens do projeto (variables.css) */
-
 :root {
   --bg-1: #0b1220;
   --bg-2: #141826;
@@ -10,12 +9,12 @@
   --card-bg: rgba(255,255,255,0.02);
 }
 
-/* Global page background and layout (substituído) */
+/* Global page background and layout */
 body {
   margin: 0;
-  /* Fundo vibrante teal -> roxo (mantendo tom escuro do projeto) */
+  /* Fundo vibrante teal → roxo (mesmo do hub) */
   background:
-    radial-gradient(900px 600px at 12% 18%, rgba(16, 208, 186, 0.607), transparent 50%),
+    radial-gradient(900px 600px at 12% 18%, rgba(16, 208, 186, 0.07), transparent 50%),
     linear-gradient(135deg, rgba(20,184,166,0.06) 0%, rgba(20,184,166,0.04) 18%, rgba(48,33,175,0.06) 60%, rgba(48,33,175,0.14) 100%),
     linear-gradient(180deg, rgba(8,16,24,0.92), rgba(20,18,34,0.98));
   color: var(--text-primary);
@@ -65,7 +64,7 @@ body {
 .hero{ min-height: calc(100vh - 72px); display:flex; align-items:center; justify-content:center; padding:120px 0 80px; background: radial-gradient(1200px 600px at 10% 10%, rgba(20,30,40,0.25), transparent), linear-gradient(180deg, rgba(8,16,24,0.9), rgba(20,18,34,0.95)); box-sizing:border-box; }
 .hero-inner{ text-align:center; max-width:1100px; margin:0 auto; padding: 40px 20px; }
 
-/* Hero badge (S) — substituído para visual mais próximo ao print */
+/* Hero badge S */
 .hero-badge {
   width: 96px;
   height: 96px;
@@ -75,15 +74,13 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  color: #ffffff;          /* S em branco */
+  color: #ffffff;
   font-size: 34px;
-  /* corpo com gradiente radial + linear para brilho e profundidade */
   background:
     radial-gradient(circle at 30% 28%, rgba(255,255,255,0.14), transparent 12%),
     linear-gradient(180deg, #32d6c0 0%, #14b8a6 45%, #0e8f7a 100%);
   border: 1px solid rgba(255,255,255,0.04);
   box-shadow: 0 18px 40px rgba(20,184,166,0.12), 0 6px 18px rgba(2,6,23,0.45);
-  /* pequeno efeito interno para parecer levemente iluminado */
   position: relative;
   overflow: visible;
 }
@@ -105,21 +102,183 @@ body {
 .section-sub{ text-align:center; color:var(--text-muted); margin:0 0 30px; }
 
 /* Cards grid */
-.cards-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:22px; margin-top:30px; }
-.card{
+.cards-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px; margin-top:30px; }
+
+/* Feature Cards (estilo do hub) */
+.feature-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 20px rgba(2,6,23,0.5);
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(2,6,23,0.7);
+  border-color: rgba(255,255,255,0.1);
+}
+
+/* Feature Card Colors (igual ao hub) */
+.feature-card[data-color="mood"] {
+  border-color: rgba(96, 165, 250, 0.2);
+}
+
+.feature-card[data-color="mood"]:hover {
+  border-color: rgba(96, 165, 250, 0.35);
+  box-shadow: 0 12px 36px rgba(96, 165, 250, 0.15);
+}
+
+.feature-card[data-color="symptoms"] {
+  border-color: rgba(248, 113, 113, 0.2);
+}
+
+.feature-card[data-color="symptoms"]:hover {
+  border-color: rgba(248, 113, 113, 0.35);
+  box-shadow: 0 12px 36px rgba(248, 113, 113, 0.15);
+}
+
+.feature-card[data-color="selfcare"] {
+  border-color: rgba(251, 191, 36, 0.2);
+}
+
+.feature-card[data-color="selfcare"]:hover {
+  border-color: rgba(251, 191, 36, 0.35);
+  box-shadow: 0 12px 36px rgba(251, 191, 36, 0.15);
+}
+
+.feature-card[data-color="trends"] {
+  border-color: rgba(167, 139, 250, 0.2);
+}
+
+.feature-card[data-color="trends"]:hover {
+  border-color: rgba(167, 139, 250, 0.35);
+  box-shadow: 0 12px 36px rgba(167, 139, 250, 0.15);
+}
+
+.feature-card[data-color="assessment"] {
+  border-color: rgba(52, 211, 153, 0.2);
+}
+
+.feature-card[data-color="assessment"]:hover {
+  border-color: rgba(52, 211, 153, 0.35);
+  box-shadow: 0 12px 36px rgba(52, 211, 153, 0.15);
+}
+
+/* Ícones das feature cards */
+.card-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+}
+
+.card-icon-lucide {
+  width: 32px;
+  height: 32px;
+  stroke-width: 2;
+}
+
+/* Cores dos ícones por funcionalidade */
+.mood-icon .card-icon-lucide {
+  color: #60A5FA;
+}
+
+.symptoms-icon .card-icon-lucide {
+  color: #F87171;
+}
+
+.selfcare-icon .card-icon-lucide {
+  color: #FBBF24;
+}
+
+.trends-icon .card-icon-lucide {
+  color: #A78BFA;
+}
+
+.assessment-icon .card-icon-lucide {
+  color: #34D399;
+}
+
+/* Card title e desc */
+.card-title{ margin:0 0 8px; font-size:18px; font-weight:700; }
+.card-desc{ color:var(--text-muted); font-size:14px; margin-bottom:12px; line-height:1.5; }
+
+/* Card CTA (badges coloridas) */
+.card-cta{ 
+  display:inline-block; 
+  padding:8px 12px; 
+  border-radius:8px; 
+  font-weight:600; 
+  font-size:13px;
+  margin-top: auto;
+}
+
+.mood-color {
+  background: rgba(96, 165, 250, 0.12);
+  color: #60A5FA;
+}
+
+.symptoms-color {
+  background: rgba(248, 113, 113, 0.12);
+  color: #F87171;
+}
+
+.selfcare-color {
+  background: rgba(251, 191, 36, 0.12);
+  color: #FBBF24;
+}
+
+.trends-color {
+  background: rgba(167, 139, 250, 0.12);
+  color: #A78BFA;
+}
+
+.assessment-color {
+  background: rgba(52, 211, 153, 0.12);
+  color: #34D399;
+}
+
+/* Benefits Cards (pequenos) */
+.card.small{ 
   background: var(--card-bg);
   border: 1px solid rgba(255,255,255,0.03);
-  border-radius:12px; padding:22px; box-shadow: 0 6px 20px rgba(2,6,23,0.6);
+  border-radius:12px; 
+  padding:22px; 
+  box-shadow: 0 6px 20px rgba(2,6,23,0.6);
   transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
 }
-.card:hover{ transform: translateY(-6px); border-color: rgba(20,184,166,0.14); box-shadow: 0 12px 36px rgba(2,6,23,0.8); }
-.card-icon{ font-size:28px; display:inline-flex; width:48px; height:48px; align-items:center; justify-content:center; border-radius:10px; background: rgba(255,255,255,0.02); margin-bottom:12px; }
-.card-title{ margin:0 0 8px; font-size:18px; font-weight:700; }
-.card-desc{ color:var(--text-muted); font-size:14px; margin-bottom:12px; }
-.card-cta{ display:inline-block; background: rgba(20,184,166,0.06); color: var(--teal-500); padding:8px 12px; border-radius:8px; font-weight:600; font-size:13px; }
 
-/* small variant */
-.card.small{ padding:20px; }
+.card.small:hover{ 
+  transform: translateY(-6px); 
+  border-color: rgba(20,184,166,0.14); 
+  box-shadow: 0 12px 36px rgba(2,6,23,0.8); 
+}
+
+.card-icon-simple {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.02);
+  margin-bottom: 12px;
+}
+
+.icon-benefit {
+  width: 24px;
+  height: 24px;
+  color: var(--teal-300);
+  stroke-width: 2;
+}
 
 /* Footer */
 .site-footer{ padding:40px 0; border-top:1px solid rgba(255,255,255,0.02); margin-top:40px; background: rgba(3,6,12,0.35); }
@@ -133,5 +292,20 @@ body {
 }
 
 /* Responsive */
-@media (max-width:1000px){ .hero-title{ font-size:48px; } .cards-grid{ grid-template-columns: repeat(2,1fr); } }
-@media (max-width:700px){ .hero{ padding:100px 0 60px; } .hero-title{ font-size:34px; } .cards-grid{ grid-template-columns: 1fr; } .nav-toggle{ display:inline-flex; } .nav-list{ display:none; } .cta-large{ padding:12px 18px; } .hero-desc{ font-size:16px; } .header-inner{ padding:12px 0; } .brand-text{ display:none; } .hero-inner{ padding: 20px; } }
+@media (max-width:1000px){ 
+  .hero-title{ font-size:48px; } 
+  .cards-grid{ grid-template-columns: repeat(2,1fr); } 
+}
+
+@media (max-width:700px){ 
+  .hero{ padding:100px 0 60px; } 
+  .hero-title{ font-size:34px; } 
+  .cards-grid{ grid-template-columns: 1fr; } 
+  .nav-toggle{ display:inline-flex; } 
+  .nav-list{ display:none; } 
+  .cta-large{ padding:12px 18px; } 
+  .hero-desc{ font-size:16px; } 
+  .header-inner{ padding:12px 0; } 
+  .brand-text{ display:none; } 
+  .hero-inner{ padding: 20px; } 
+}
