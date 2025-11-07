@@ -1,20 +1,16 @@
-// hub.js - lógica do hub principal
+// hub.js - lógica do hub principal com navegação universal
 
 (function() {
   'use strict';
 
-  // ========== AUTENTICAÇÃO ==========
-  // Verifica se usuário está autenticado
+  // ===== AUTENTICAÇÃO =====
   function checkAuth() {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
-
     if (!token || !user) {
-      // Redireciona para login se não autenticado
       window.location.href = '../pages/login.html';
       return null;
     }
-
     try {
       return JSON.parse(user);
     } catch (err) {
@@ -25,51 +21,43 @@
     }
   }
 
-  // Executa verificação ao carregar
   const currentUser = checkAuth();
   if (!currentUser) return;
 
-  // ========== PERSONALIZAÇÃO DO USUÁRIO ==========
-  // Nome do usuário no card de boas-vindas
+  // ===== PERSONALIZAÇÃO DO USUÁRIO =====
   const userNameEl = document.getElementById('userName');
   if (userNameEl && currentUser.firstName) {
     userNameEl.textContent = currentUser.firstName;
   }
 
-  // Iniciais no avatar do perfil
   const userInitialsEl = document.getElementById('userInitials');
   if (userInitialsEl && currentUser.firstName) {
-    const initials = currentUser.firstName.charAt(0).toUpperCase() + 
-                    (currentUser.lastName ? currentUser.lastName.charAt(0).toUpperCase() : '');
+    const initials = currentUser.firstName.charAt(0).toUpperCase() +
+      (currentUser.lastName ? currentUser.lastName.charAt(0).toUpperCase() : '');
     userInitialsEl.textContent = initials;
   }
 
-  // ========== HORA ATUAL ==========
-  // Atualiza hora em tempo real
+  // ===== HORA ATUAL =====
   function updateTime() {
     const timeEl = document.getElementById('currentTime');
     if (!timeEl) return;
-
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     timeEl.textContent = `${hours}:${minutes}`;
   }
 
-  // Atualiza a cada minuto
   updateTime();
   setInterval(updateTime, 60000);
 
-  // ========== DROPDOWN DO PERFIL ==========
+  // ===== DROPDOWN DO PERFIL =====
   const profileBtn = document.getElementById('profileBtn');
   const profileDropdown = document.getElementById('profileDropdown');
-
+  
   if (profileBtn && profileDropdown) {
-    // Toggle dropdown
     profileBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       const isHidden = profileDropdown.hasAttribute('hidden');
-      
       if (isHidden) {
         profileDropdown.removeAttribute('hidden');
         profileBtn.setAttribute('aria-expanded', 'true');
@@ -79,7 +67,6 @@
       }
     });
 
-    // Fechar dropdown ao clicar fora
     document.addEventListener('click', (e) => {
       if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
         profileDropdown.setAttribute('hidden', '');
@@ -88,7 +75,7 @@
     });
   }
 
-  // ========== MODAL DE EMERGÊNCIA ==========
+  // ===== MODAL DE EMERGÊNCIA =====
   const emergencyBtn = document.getElementById('emergencyBtn');
   const emergencyModal = document.getElementById('emergencyModal');
   const emergencyOverlay = document.getElementById('emergencyOverlay');
@@ -97,14 +84,14 @@
   function openEmergencyModal() {
     if (emergencyModal) {
       emergencyModal.removeAttribute('hidden');
-      document.body.style.overflow = 'hidden'; // Previne scroll
+      document.body.style.overflow = 'hidden';
     }
   }
 
   function closeEmergencyModal() {
     if (emergencyModal) {
       emergencyModal.setAttribute('hidden', '');
-      document.body.style.overflow = ''; // Restaura scroll
+      document.body.style.overflow = '';
     }
   }
 
@@ -120,7 +107,6 @@
     emergencyOverlay.addEventListener('click', closeEmergencyModal);
   }
 
-  // Link para configurações no modal de emergência
   const emergencySettingsLink = document.getElementById('emergencySettingsLink');
   if (emergencySettingsLink) {
     emergencySettingsLink.addEventListener('click', (e) => {
@@ -130,7 +116,6 @@
     });
   }
 
-  // Fechar modal com ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeEmergencyModal();
@@ -138,7 +123,7 @@
     }
   });
 
-  // ========== MODAL DE NOTIFICAÇÕES ==========
+  // ===== MODAL DE NOTIFICAÇÕES =====
   const notificationBtn = document.getElementById('notificationBtn');
   const notificationModal = document.getElementById('notificationModal');
   const notificationOverlay = document.getElementById('notificationOverlay');
@@ -148,8 +133,6 @@
     if (notificationModal) {
       notificationModal.removeAttribute('hidden');
       document.body.style.overflow = 'hidden';
-      
-      // Remove badge após abrir
       const badge = document.querySelector('.notification-badge');
       if (badge) {
         badge.style.display = 'none';
@@ -176,74 +159,76 @@
     notificationOverlay.addEventListener('click', closeNotificationModal);
   }
 
-  // ========== ALERTAS "EM DESENVOLVIMENTO" ==========
+  // ===== ALERTAS "EM DESENVOLVIMENTO" =====
   function showDevelopmentAlert(featureName) {
     alert(`Ainda estamos desenvolvendo essa funcionalidade: ${featureName} 🚧\n\nEm breve estará disponível!`);
   }
 
-  // ========== NAVEGAÇÃO DA SIDEBAR ==========
+  // ===== SISTEMA DE NAVEGAÇÃO UNIVERSAL =====
   const sidebarLinks = document.querySelectorAll('.sidebar-link[data-feature]');
-  
+  const featureButtons = document.querySelectorAll('.btn-feature[data-feature]');
+
+  // Mapa de rotas das funcionalidades
+  const routeMap = {
+    'inicio': '../pages/hub.html',
+    'diario-humor': '../pages/diario-humor.html',
+    'sintomas': '../pages/sintomas.html',
+    'tendencias': null, // em desenvolvimento
+    'avaliacoes': null, // em desenvolvimento
+    'autocuidado': null, // em desenvolvimento
+    'configuracoes': null, // em desenvolvimento
+    'perfil': null // em desenvolvimento
+  };
+
+  // Nomes amigáveis para alertas
+  const featureNames = {
+    'tendencias': 'Tendências e Relatórios',
+    'avaliacoes': 'Autoavaliações',
+    'autocuidado': 'Autocuidado',
+    'configuracoes': 'Configurações',
+    'perfil': 'Perfil'
+  };
+
+  // Função universal de navegação
+  function navigateToFeature(feature) {
+    const route = routeMap[feature];
+    
+    if (route) {
+      // Redireciona para a página
+      window.location.href = route;
+    } else {
+      // Mostra alerta "em desenvolvimento"
+      showDevelopmentAlert(featureNames[feature] || feature);
+    }
+  }
+
+  // Event listeners para sidebar
   sidebarLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const feature = link.getAttribute('data-feature');
-      
-      // Remove active de todos
-      sidebarLinks.forEach(l => l.classList.remove('active'));
-      
-      // Adiciona active no clicado
-      link.classList.add('active');
-
-      // Se for "início", não mostra alerta
-      if (feature === 'inicio') {
-        return;
-      }
-
-      // Mapeia nomes amigáveis
-      const featureNames = {
-        'diario-humor': 'Diário de Humor',
-        'sintomas': 'Registro de Sintomas',
-        'tendencias': 'Tendências e Relatórios',
-        'avaliacoes': 'Autoavaliações',
-        'autocuidado': 'Autocuidado',
-        'configuracoes': 'Configurações',
-        'perfil': 'Perfil'
-      };
-
-      showDevelopmentAlert(featureNames[feature] || feature);
+      navigateToFeature(feature);
     });
   });
 
-  // ========== CARDS DE FUNCIONALIDADES ==========
-  const featureButtons = document.querySelectorAll('.btn-feature[data-feature]');
-  
+  // Event listeners para cards de funcionalidades
   featureButtons.forEach(button => {
     button.addEventListener('click', (e) => {
       e.preventDefault();
       const feature = button.getAttribute('data-feature');
-      
-      const featureNames = {
-        'diario-humor': 'Diário de Humor',
-        'sintomas': 'Registro de Sintomas',
-        'autocuidado': 'Autocuidado',
-        'tendencias': 'Tendências e Relatórios',
-        'avaliacoes': 'Autoavaliações'
-      };
-
-      showDevelopmentAlert(featureNames[feature] || feature);
+      navigateToFeature(feature);
     });
   });
 
-  // ========== BOTÃO "REGISTRAR HUMOR DE HOJE" ==========
+  // Botão "Registrar Humor de Hoje"
   const registerMoodBtn = document.getElementById('registerMoodBtn');
   if (registerMoodBtn) {
     registerMoodBtn.addEventListener('click', () => {
-      showDevelopmentAlert('Diário de Humor');
+      navigateToFeature('diario-humor');
     });
   }
 
-  // ========== DROPDOWN DO PERFIL - LINKS ==========
+  // ===== DROPDOWN DO PERFIL - LINKS =====
   const profileLink = document.getElementById('profileLink');
   const settingsLink = document.getElementById('settingsLink');
   const logoutLink = document.getElementById('logoutLink');
@@ -265,27 +250,20 @@
   if (logoutLink) {
     logoutLink.addEventListener('click', (e) => {
       e.preventDefault();
-      
-      // Confirma logout
       const confirm = window.confirm('Deseja realmente sair?');
       if (confirm) {
-        // Limpa dados de autenticação
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        
-        // Redireciona para landing page
         window.location.href = '../pages/landing.html';
       }
     });
   }
 
-  // ========== INICIALIZAÇÃO DOS ÍCONES LUCIDE ==========
-  // Já está no HTML, mas garantir que funcione
+  // ===== INICIALIZAÇÃO DOS ÍCONES LUCIDE =====
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
 
   console.log('🎉 Hub carregado com sucesso!');
   console.log('👤 Usuário:', currentUser.firstName, currentUser.lastName);
-
 })();
