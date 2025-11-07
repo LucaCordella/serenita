@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Serenità · Diário do Humor</title>
+  
+  <!-- design tokens (variáveis) -->
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  
+  <!-- page specific -->
+  <link rel="stylesheet" href="../styles/diario-humor.css">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  
+  <!-- ===== HEADER (fixo) ===== -->
+  <header class="hub-header" role="banner">
+    <div class="header-left">
+      <a href="/pages/hub.html" class="brand-link">
+        <div class="logo-round" aria-hidden="true">
+          <span class="logo-fallback">S</span>
+        </div>
+        <span class="brand-text">Serenità</span>
+      </a>
+    </div>
+    
+    <div class="header-right">
+      <!-- Botão Emergência -->
+      <button id="emergencyBtn" class="btn-emergency" aria-label="Emergência" title="Ajuda de Emergência">
+        <i data-lucide="alert-triangle" class="icon-emergency"></i>
+        <span>Emergência</span>
+      </button>
+      
+      <!-- Notificações -->
+      <button id="notificationBtn" class="icon-btn notification-btn" aria-label="Notificações" title="Notificações">
+        <i data-lucide="bell"></i>
+        <span class="notification-badge">1</span>
+      </button>
+      
+      <!-- Perfil -->
+      <button id="profileBtn" class="icon-btn profile-btn" aria-label="Perfil" aria-expanded="false">
+        <div class="profile-avatar">
+          <span id="userInitials">U</span>
+        </div>
+      </button>
+      
+      <!-- Dropdown Perfil -->
+      <div id="profileDropdown" class="dropdown-menu" hidden>
+        <a href="#" class="dropdown-item" id="profileLink">
+          <i data-lucide="user" class="dropdown-icon"></i>
+          Perfil
+        </a>
+        <a href="#" class="dropdown-item" id="settingsLink">
+          <i data-lucide="settings" class="dropdown-icon"></i>
+          Configurações
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="../pages/landing.html" class="dropdown-item" id="logoutLink">
+          <i data-lucide="log-out" class="dropdown-icon"></i>
+          Sair
+        </a>
+      </div>
+    </div>
+  </header>
+  
+  <!-- ===== SIDEBAR (fixa) ===== -->
+  <aside class="hub-sidebar" role="navigation" aria-label="Menu principal">
+    <nav class="sidebar-nav">
+      <ul class="sidebar-list">
+        <li>
+          <a href="../pages/hub.html" class="sidebar-link" data-feature="inicio">
+            <i data-lucide="home" class="sidebar-icon"></i>
+            <span class="sidebar-text">Início</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/diario-humor.html" class="sidebar-link active" data-feature="diario-humor">
+            <i data-lucide="smile" class="sidebar-icon"></i>
+            <span class="sidebar-text">Diário de Humor</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-feature="sintomas">
+            <i data-lucide="heart" class="sidebar-icon"></i>
+            <span class="sidebar-text">Sintomas</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-feature="tendencias">
+            <i data-lucide="trending-up" class="sidebar-icon"></i>
+            <span class="sidebar-text">Tendências</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-feature="avaliacoes">
+            <i data-lucide="check-square" class="sidebar-icon"></i>
+            <span class="sidebar-text">Avaliações</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-feature="autocuidado">
+            <i data-lucide="brain" class="sidebar-icon"></i>
+            <span class="sidebar-text">Autocuidado</span>
+          </a>
+        </li>
+      </ul>
+      
+      <!-- Sidebar Footer -->
+      <ul class="sidebar-list sidebar-footer">
+        <li>
+          <a href="#" class="sidebar-link" data-feature="configuracoes">
+            <i data-lucide="settings" class="sidebar-icon"></i>
+            <span class="sidebar-text">Configurações</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-feature="perfil">
+            <i data-lucide="user" class="sidebar-icon"></i>
+            <span class="sidebar-text">Perfil</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="hub-main" role="main">
+    <div class="hub-container">
+      
+      <!-- Título da Página -->
+      <div class="page-header-section">
+        <h1 class="page-title">Diário do Humor</h1>
+        <p class="page-subtitle">Acompanhe e monitore seus humores e emoções diários</p>
+      </div>
+      
+      <!-- Grid de Conteúdo -->
+      <div class="content-grid">
+        
+        <!-- Coluna Esquerda: Formulário de Registro -->
+        <section class="card mood-form-card" id="moodFormCard">
+          <div class="card-header">
+            <h2 class="card-title">Humor de Hoje</h2>
+            <p class="card-subtitle">Como você está se sentindo agora?</p>
+          </div>
+          
+          <form id="moodForm" class="mood-form">
+            <!-- Emoji Display -->
+            <div class="emoji-display">
+              <div class="emoji-circle" id="emojiDisplay">
+                <span class="emoji-large">😐</span>
+              </div>
+              <div class="mood-name" id="moodName">Neutro</div>
+              <div class="mood-level">Nível do Humor: <span id="moodLevel">3</span>/5</div>
+            </div>
+            
+            <!-- Emoji Picker -->
+            <div class="emoji-picker">
+              <button type="button" class="emoji-btn" data-emoji="😢" data-name="Muito Triste" data-value="1">
+                <span class="emoji">😢</span>
+              </button>
+              <button type="button" class="emoji-btn" data-emoji="😔" data-name="Triste" data-value="2">
+                <span class="emoji">😔</span>
+              </button>
+              <button type="button" class="emoji-btn active" data-emoji="😐" data-name="Neutro" data-value="3">
+                <span class="emoji">😐</span>
+              </button>
+              <button type="button" class="emoji-btn" data-emoji="😊" data-name="Feliz" data-value="4">
+                <span class="emoji">😊</span>
+              </button>
+              <button type="button" class="emoji-btn" data-emoji="😄" data-name="Muito Feliz" data-value="5">
+                <span class="emoji">😄</span>
+              </button>
+            </div>
+            
+            <!-- Intensity Slider -->
+            <div class="intensity-section">
+              <div class="intensity-labels">
+                <span class="label-left">Baixo</span>
+                <span class="label-right">Alto</span>
+              </div>
+              <input type="range" id="intensitySlider" class="intensity-slider" min="1" max="5" value="3" step="1">
+            </div>
+            
+            <!-- Observações -->
+            <div class="form-group">
+              <label for="observations" class="form-label">Observações (opcional)</label>
+              <textarea
+                id="observations"
+                class="form-textarea"
+                rows="4"
+                placeholder="Como você está se sentindo hoje? O que está em sua mente?"
+                maxlength="500"
+              ></textarea>
+              <div class="char-count">
+                <span id="charCount">0</span>/500
+              </div>
+            </div>
+            
+            <!-- Botão Salvar -->
+            <button type="submit" class="btn btn-save" id="btnSave">
+              <i data-lucide="save"></i>
+              Salvar Registro de Humor
+            </button>
+          </form>
+        </section>
+        
+        <!-- Coluna Direita: Histórico -->
+        <section class="card history-card">
+          <div class="card-header">
+            <h2 class="card-title">Registros Recentes</h2>
+            <p class="card-subtitle">Seu histórico de humor da semana passada</p>
+          </div>
+          
+          <div class="history-list" id="historyList">
+            <!-- Placeholder vazio -->
+            <div class="empty-state" id="emptyState">
+              <i data-lucide="smile" class="empty-icon"></i>
+              <p class="empty-text">Nenhum registro ainda</p>
+              <p class="empty-hint">Registre seu primeiro humor!</p>
+            </div>
+          </div>
+        </section>
+        
+      </div>
+    </div>
+  </main>
+  
+  <!-- ===== FOOTER ===== -->
+  <footer class="hub-footer">
+    <div class="footer-content">
+      <p class="footer-text">© 2025 Serenità por Luca Cordella</p>
+    </div>
+  </footer>
+  
+  <!-- ===== MODALS ===== -->
+  
+  <!-- Modal de Emergência -->
+  <div id="emergencyModal" class="modal" hidden aria-modal="true" role="dialog" aria-labelledby="emergencyTitle">
+    <div class="modal-overlay" id="emergencyOverlay"></div>
+    <div class="modal-content emergency-modal">
+      <button class="modal-close" id="closeEmergency" aria-label="Fechar">
+        <i data-lucide="x"></i>
+      </button>
+      
+      <div class="emergency-header">
+        <h2 id="emergencyTitle" class="emergency-title">
+          <i data-lucide="alert-triangle" class="emergency-icon"></i>
+          Ajuda de Emergência
+        </h2>
+        <p class="emergency-subtitle">Se você ou alguém está em perigo, procure ajuda imediatamente.</p>
+      </div>
+      
+      <div class="emergency-body">
+        <div class="emergency-section">
+          <h3 class="emergency-section-title">
+            <i data-lucide="phone" class="section-icon"></i>
+            Canais de Apoio 24h
+          </h3>
+          <ul class="emergency-list">
+            <li class="emergency-item">
+              <span class="emergency-label">CVV – Centro de Valorização da Vida</span>
+              <a href="tel:188" class="emergency-phone">188</a>
+            </li>
+            <li class="emergency-item">
+              <span class="emergency-label">SAMU – Emergência Médica</span>
+              <a href="tel:192" class="emergency-phone">192</a>
+            </li>
+            <li class="emergency-item">
+              <span class="emergency-label">Polícia Militar</span>
+              <a href="tel:190" class="emergency-phone">190</a>
+            </li>
+            <li class="emergency-item">
+              <span class="emergency-label">Bombeiros</span>
+              <a href="tel:193" class="emergency-phone">193</a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="emergency-section">
+          <h3 class="emergency-section-title">
+            <i data-lucide="user" class="section-icon"></i>
+            Contato de Emergência Pessoal
+          </h3>
+          <div class="emergency-personal">
+            <span class="emergency-label">Telefone cadastrado:</span>
+            <span class="emergency-phone-display">XXXXXXX</span>
+            <p class="emergency-hint">Configure nas <a href="#" id="emergencySettingsLink">Configurações</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de Notificação -->
+  <div id="notificationModal" class="modal notification-modal" hidden>
+    <div class="modal-overlay" id="notificationOverlay"></div>
+    <div class="modal-content notification-content">
+      <button class="modal-close" id="closeNotification" aria-label="Fechar">
+        <i data-lucide="x"></i>
+      </button>
+      
+      <h3 class="notification-title">
+        <i data-lucide="bell"></i>
+        Notificações
+      </h3>
+      
+      <ul class="notification-list">
+        <li class="notification-item unread">
+          <i data-lucide="sparkles" class="notification-icon"></i>
+          <div class="notification-text">
+            <p class="notification-message">Você entrou no Diário de Humor</p>
+            <span class="notification-time">Agora</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Toast de Feedback -->
+  <div class="toast" id="toast" hidden>
+    <i data-lucide="check-circle" class="toast-icon"></i>
+    <span class="toast-message">Humor registrado com sucesso!</span>
+  </div>
+  
+  <script src="../pages/diario-humor.js" defer></script>
+  <script>
+    // Inicializar ícones Lucide após o DOM carregar
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
+  
+</body>
+</html>
