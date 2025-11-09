@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Serenità · Perfil</title>
+    
+    <!-- design tokens (variáveis) -->
+    <link rel="stylesheet" href="../styles/variables.css">
+    <link rel="stylesheet" href="../styles/base.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    
+    <!-- page specific -->
+    <link rel="stylesheet" href="../styles/perfil.css">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- ===== HEADER (fixo) ===== -->
+    <header class="hub-header" role="banner">
+        <div class="header-left">
+            <a href="/pages/hub.html" class="brand-link">
+                <div class="logo-round" aria-hidden="true">
+                    <span class="logo-fallback">S</span>
+                </div>
+                <span class="brand-text">Serenità</span>
+            </a>
+        </div>
+        
+        <div class="header-right">
+            <!-- Botão Emergência -->
+            <button id="emergencyBtn" class="btn-emergency" aria-label="Emergência" title="Ajuda de Emergência">
+                <i data-lucide="alert-triangle" class="icon-emergency"></i>
+                <span>Emergência</span>
+            </button>
+            
+            <!-- Notificações -->
+            <button id="notificationBtn" class="icon-btn notification-btn" aria-label="Notificações" title="Notificações">
+                <i data-lucide="bell"></i>
+                <span class="notification-badge">1</span>
+            </button>
+            
+            <!-- Perfil -->
+            <button id="profileBtn" class="icon-btn profile-btn" aria-label="Perfil" aria-expanded="false">
+                <div class="profile-avatar">
+                    <span id="userInitials">U</span>
+                </div>
+            </button>
+            
+            <!-- Dropdown Perfil -->
+            <div id="profileDropdown" class="dropdown-menu" hidden>
+                <a href="../pages/perfil.html" class="dropdown-item" id="profileLink">
+                    <i data-lucide="user" class="dropdown-icon"></i>
+                    Perfil
+                </a>
+                <a href="#" class="dropdown-item" id="settingsLink">
+                    <i data-lucide="settings" class="dropdown-icon"></i>
+                    Configurações
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="../pages/landing.html" class="dropdown-item" id="logoutLink">
+                    <i data-lucide="log-out" class="dropdown-icon"></i>
+                    Sair
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== SIDEBAR (fixa) ===== -->
+    <aside class="hub-sidebar" role="navigation" aria-label="Menu principal">
+        <nav class="sidebar-nav">
+            <ul class="sidebar-list">
+                <li>
+                    <a href="../pages/hub.html" class="sidebar-link" data-feature="inicio">
+                        <i data-lucide="home" class="sidebar-icon"></i>
+                        <span class="sidebar-text">Início</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../pages/diario-humor.html" class="sidebar-link" data-feature="diario-humor">
+                        <i data-lucide="smile" class="sidebar-icon"></i>
+                        <span class="sidebar-text">Diário de Humor</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../pages/sintomas.html" class="sidebar-link" data-feature="sintomas">
+                        <i data-lucide="heart" class="sidebar-icon"></i>
+                        <span class="sidebar-text">Sintomas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-link" data-feature="tendencias">
+                        <i data-lucide="trending-up" class="sidebar-icon"></i>
+                        <span class="sidebar-text">Tendências</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-link" data-feature="avaliacoes">
+                        <i data-lucide="check-square" class="sidebar-icon"></i>
+                        <span class="sidebar-text">Avaliações</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../pages/autocuidado.html" class="sidebar-link" data-feature="autocuidado">
+                        <i data-lucide="brain" class="sidebar-icon"></i>
+                        <span class="sidebar-text">Autocuidado</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Sidebar Footer -->
+            <ul class="sidebar-list sidebar-footer">
+                <li>
+                    <a href="#" class="sidebar-link" data-feature="configuracoes">
+                        <i data-lucide="settings" class="sidebar-icon"></i>
+                        <span class="sidebar-text">Configurações</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../pages/perfil.html" class="sidebar-link active" data-feature="perfil">
+                        <i data-lucide="user" class="sidebar-icon"></i>
+                        <span class="sidebar-text">Perfil</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="hub-main" role="main">
+        <div class="hub-container">
+            <!-- Título da Página -->
+            <div class="page-header-section">
+                <h1 class="page-title">Perfil</h1>
+                <p class="page-subtitle">Gerencie as configurações e preferências da sua conta</p>
+            </div>
+
+            <!-- Tabs de Navegação -->
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="visao-geral">Visão Geral</button>
+                <button class="tab-btn" data-tab="configuracoes">Configurações</button>
+            </div>
+
+            <!-- ===== ABA VISÃO GERAL ===== -->
+            <div class="tab-content active" id="tabVisaoGeral">
+                <section class="card profile-overview-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar-section">
+                            <div class="profile-avatar-large" id="profileAvatarLarge">
+                                <span id="profileInitialsLarge">LC</span>
+                                <button class="avatar-edit-btn" id="avatarEditBtn" aria-label="Alterar foto">
+                                    <i data-lucide="camera"></i>
+                                </button>
+                            </div>
+                            <input type="file" id="avatarInput" accept="image/*" hidden />
+                        </div>
+                        
+                        <div class="profile-info-section">
+                            <h2 class="profile-name" id="profileName">Luca Cordella</h2>
+                            <p class="profile-email" id="profileEmail">luca.cordella@serenita.com</p>
+                            <div class="profile-meta">
+                                <span class="profile-meta-item">
+                                    <i data-lucide="calendar"></i>
+                                    <span id="profileAge">25 anos</span>
+                                </span>
+                                <span class="profile-meta-item">
+                                    <i data-lucide="clock"></i>
+                                    <span>Membro desde <span id="memberSince">Janeiro 2025</span></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-bio-section">
+                        <h3 class="profile-section-title">Sobre mim</h3>
+                        <div class="profile-bio-display" id="profileBioDisplay">
+                            <p id="profileBioText">Adicione uma breve descrição sobre você...</p>
+                            <button class="btn-edit-bio" id="editBioBtn">
+                                <i data-lucide="edit-2"></i>
+                                Editar
+                            </button>
+                        </div>
+                        
+                        <!-- Form de edição (inicialmente oculto) -->
+                        <div class="profile-bio-edit" id="profileBioEdit" style="display: none;">
+                            <textarea 
+                                id="bioTextarea" 
+                                class="bio-textarea" 
+                                maxlength="300"
+                                placeholder="Escreva algo sobre você, seus objetivos, interesses..."
+                                rows="4"
+                            ></textarea>
+                            <div class="bio-edit-footer">
+                                <span class="char-count"><span id="bioCharCount">0</span>/300</span>
+                                <div class="bio-edit-actions">
+                                    <button class="btn btn-cancel" id="cancelBioBtn">Cancelar</button>
+                                    <button class="btn btn-save" id="saveBioBtn">
+                                        <i data-lucide="check"></i>
+                                        Salvar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estatísticas Rápidas -->
+                    <div class="profile-stats-section">
+                        <h3 class="profile-section-title">Suas Estatísticas</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon mood-stat">
+                                    <i data-lucide="smile"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-value" id="statMoodEntries">0</div>
+                                    <div class="stat-label">Registros de Humor</div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon symptom-stat">
+                                    <i data-lucide="heart"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-value" id="statSymptomEntries">0</div>
+                                    <div class="stat-label">Sintomas Registrados</div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon task-stat">
+                                    <i data-lucide="check-circle"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-value" id="statTasksCompleted">0</div>
+                                    <div class="stat-label">Tarefas Concluídas</div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon practice-stat">
+                                    <i data-lucide="sparkles"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-value" id="statPractices">0</div>
+                                    <div class="stat-label">Práticas Realizadas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ===== ABA CONFIGURAÇÕES ===== -->
+            <div class="tab-content" id="tabConfiguracoes">
+                <section class="card profile-settings-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Configurações do Perfil</h2>
+                        <p class="card-subtitle">Atualize suas informações de perfil e preferências</p>
+                    </div>
+
+                    <form id="profileSettingsForm" class="profile-settings-form">
+                        <!-- Foto de Perfil -->
+                        <div class="settings-section">
+                            <div class="settings-avatar-section">
+                                <div class="settings-avatar-preview" id="settingsAvatarPreview">
+                                    <span id="settingsInitials">LC</span>
+                                </div>
+                                <div class="settings-avatar-actions">
+                                    <button type="button" class="btn-change-avatar" id="changeAvatarBtn">
+                                        Alterar Avatar
+                                    </button>
+                                    <input type="file" id="avatarInputSettings" accept="image/*" hidden />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Informações Pessoais -->
+                        <div class="settings-section">
+                            <h3 class="settings-section-title">Informações Pessoais</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName" class="form-label">Nome</label>
+                                    <input 
+                                        type="text" 
+                                        id="firstName" 
+                                        class="form-input" 
+                                        placeholder="Seu nome"
+                                        required
+                                    />
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="lastName" class="form-label">Sobrenome</label>
+                                    <input 
+                                        type="text" 
+                                        id="lastName" 
+                                        class="form-input" 
+                                        placeholder="Seu sobrenome"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    class="form-input" 
+                                    placeholder="seu@email.com"
+                                    required
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="biography" class="form-label">Biografia</label>
+                                <textarea 
+                                    id="biography" 
+                                    class="form-textarea" 
+                                    rows="4"
+                                    maxlength="300"
+                                    placeholder="Escreva algo sobre você..."
+                                ></textarea>
+                                <div class="char-count">
+                                    <span id="biographyCharCount">0</span>/300
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preferências -->
+                        <div class="settings-section">
+                            <h3 class="settings-section-title">Preferências</h3>
+                            
+                            <!-- Modo Escuro (placeholder - já é escuro por padrão) -->
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <i data-lucide="moon" class="preference-icon"></i>
+                                    <div class="preference-text">
+                                        <div class="preference-label">Modo Escuro</div>
+                                        <div class="preference-description">Interface com tema escuro</div>
+                                    </div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="darkModeToggle" checked disabled>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <!-- Horário do Lembrete Diário -->
+                            <div class="preference-item">
+                                <div class="preference-info">
+                                    <i data-lucide="clock" class="preference-icon"></i>
+                                    <div class="preference-text">
+                                        <div class="preference-label">Horário do Lembrete Diário</div>
+                                        <div class="preference-description">Receba lembretes para registrar seu humor</div>
+                                    </div>
+                                </div>
+                                <input 
+                                    type="time" 
+                                    id="reminderTime" 
+                                    class="time-input"
+                                    value="20:00"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="settings-actions">
+                            <button type="button" class="btn btn-cancel" id="cancelSettingsBtn">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-save">
+                                <i data-lucide="check"></i>
+                                Salvar Alterações
+                            </button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="hub-footer">
+        <div class="footer-content">
+            <p class="footer-text">© 2025 Serenità por Luca Cordella</p>
+        </div>
+    </footer>
+
+    <!-- ===== MODALS ===== -->
+    
+    <!-- Modal de Emergência -->
+    <div id="emergencyModal" class="modal" hidden aria-modal="true" role="dialog" aria-labelledby="emergencyTitle">
+        <div class="modal-overlay" id="emergencyOverlay"></div>
+        <div class="modal-content emergency-modal">
+            <button class="modal-close" id="closeEmergency" aria-label="Fechar">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="emergency-header">
+                <h2 id="emergencyTitle" class="emergency-title">
+                    <i data-lucide="alert-triangle" class="emergency-icon"></i>
+                    Ajuda de Emergência
+                </h2>
+                <p class="emergency-subtitle">Se você ou alguém está em perigo, procure ajuda imediatamente.</p>
+            </div>
+            <div class="emergency-body">
+                <div class="emergency-section">
+                    <h3 class="emergency-section-title">
+                        <i data-lucide="phone" class="section-icon"></i>
+                        Canais de Apoio 24h
+                    </h3>
+                    <ul class="emergency-list">
+                        <li class="emergency-item">
+                            <span class="emergency-label">CVV – Centro de Valorização da Vida</span>
+                            <a href="tel:188" class="emergency-phone">188</a>
+                        </li>
+                        <li class="emergency-item">
+                            <span class="emergency-label">SAMU – Emergência Médica</span>
+                            <a href="tel:192" class="emergency-phone">192</a>
+                        </li>
+                        <li class="emergency-item">
+                            <span class="emergency-label">Polícia Militar</span>
+                            <a href="tel:190" class="emergency-phone">190</a>
+                        </li>
+                        <li class="emergency-item">
+                            <span class="emergency-label">Bombeiros</span>
+                            <a href="tel:193" class="emergency-phone">193</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="emergency-section">
+                    <h3 class="emergency-section-title">
+                        <i data-lucide="user" class="section-icon"></i>
+                        Contato de Emergência Pessoal
+                    </h3>
+                    <div class="emergency-personal">
+                        <span class="emergency-label">Telefone cadastrado:</span>
+                        <span class="emergency-phone-display">XXXXXXX</span>
+                        <p class="emergency-hint">Configure nas <a href="#" id="emergencySettingsLink">Configurações</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Notificação -->
+    <div id="notificationModal" class="modal notification-modal" hidden>
+        <div class="modal-overlay" id="notificationOverlay"></div>
+        <div class="modal-content notification-content">
+            <button class="modal-close" id="closeNotification" aria-label="Fechar">
+                <i data-lucide="x"></i>
+            </button>
+            <h3 class="notification-title">
+                <i data-lucide="bell"></i>
+                Notificações
+            </h3>
+            <ul class="notification-list">
+                <li class="notification-item unread">
+                    <i data-lucide="user" class="notification-icon"></i>
+                    <div class="notification-text">
+                        <p class="notification-message">Você entrou no Perfil</p>
+                        <span class="notification-time">Agora</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Toast de Feedback -->
+    <div class="toast" id="toast" hidden>
+        <i data-lucide="check-circle" class="toast-icon"></i>
+        <span class="toast-message">Perfil atualizado com sucesso!</span>
+    </div>
+
+    <script src="../pages/perfil.js" defer></script>
+    <script>
+        // Inicializar ícones Lucide após o DOM carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

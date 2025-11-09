@@ -599,11 +599,11 @@
     'inicio': '../pages/hub.html',
     'diario-humor': '../pages/diario-humor.html',
     'sintomas': '../pages/sintomas.html',
-    'tendencias': null, // em desenvolvimento
-    'avaliacoes': null, // em desenvolvimento
-    'autocuidado': null, // em desenvolvimento
-    'configuracoes': null, // em desenvolvimento
-    'perfil': null // em desenvolvimento
+    'tendencias': '../pages/tendencias.html',
+    'avaliacoes': '../pages/avaliacoes.html',
+    'autocuidado': '../pages/autocuidado.html',
+    'configuracoes': '../pages/configuracoes.html',
+    'perfil': '../pages/perfil.html'
   };
   
   // Nomes amigáveis para alertas
@@ -645,14 +645,14 @@
   if (profileLink) {
     profileLink.addEventListener('click', (e) => {
       e.preventDefault();
-      showDevelopmentAlert('Perfil');
+      window.location.href = '../pages/perfil.html';
     });
   }
 
   if (settingsLink) {
     settingsLink.addEventListener('click', (e) => {
       e.preventDefault();
-      showDevelopmentAlert('Configurações');
+      window.location.href = '../pages/configuracoes.html';
     });
   }
 
@@ -674,7 +674,7 @@
     emergencySettingsLink.addEventListener('click', (e) => {
       e.preventDefault();
       closeEmergencyModal();
-      showDevelopmentAlert('Configurações');
+      window.location.href = '../pages/configuracoes.html';
     });
   }
 

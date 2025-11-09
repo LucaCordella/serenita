@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Serenità · Tendências e Relatórios</title>
+  
+  <!-- design tokens (variáveis) -->
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/base.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  
+  <!-- page specific -->
+  <link rel="stylesheet" href="../styles/tendencias.css">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  
+  <!-- ===== HEADER (fixo) ===== -->
+  <header class="hub-header" role="banner">
+    <div class="header-left">
+      <a href="/pages/hub.html" class="brand-link">
+        <div class="logo-round" aria-hidden="true">
+          <span class="logo-fallback">S</span>
+        </div>
+        <span class="brand-text">Serenità</span>
+      </a>
+    </div>
+    
+    <div class="header-right">
+      <!-- Botão Emergência -->
+      <button id="emergencyBtn" class="btn-emergency" aria-label="Emergência" title="Ajuda de Emergência">
+        <i data-lucide="alert-triangle" class="icon-emergency"></i>
+        <span>Emergência</span>
+      </button>
+      
+      <!-- Notificações -->
+      <button id="notificationBtn" class="icon-btn notification-btn" aria-label="Notificações" title="Notificações">
+        <i data-lucide="bell"></i>
+        <span class="notification-badge">1</span>
+      </button>
+      
+      <!-- Perfil -->
+      <button id="profileBtn" class="icon-btn profile-btn" aria-label="Perfil" aria-expanded="false">
+        <div class="profile-avatar">
+          <span id="userInitials">U</span>
+        </div>
+      </button>
+      
+      <!-- Dropdown Perfil -->
+      <div id="profileDropdown" class="dropdown-menu" hidden>
+        <a href="#" class="dropdown-item" id="profileLink">
+          <i data-lucide="user" class="dropdown-icon"></i>
+          Perfil
+        </a>
+        <a href="#" class="dropdown-item" id="settingsLink">
+          <i data-lucide="settings" class="dropdown-icon"></i>
+          Configurações
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="../pages/landing.html" class="dropdown-item" id="logoutLink">
+          <i data-lucide="log-out" class="dropdown-icon"></i>
+          Sair
+        </a>
+      </div>
+    </div>
+  </header>
+  
+  <!-- ===== SIDEBAR (fixa) ===== -->
+  <aside class="hub-sidebar" role="navigation" aria-label="Menu principal">
+    <nav class="sidebar-nav">
+      <ul class="sidebar-list">
+        <li>
+          <a href="../pages/hub.html" class="sidebar-link" data-feature="inicio">
+            <i data-lucide="home" class="sidebar-icon"></i>
+            <span class="sidebar-text">Início</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/diario-humor.html" class="sidebar-link" data-feature="diario-humor">
+            <i data-lucide="smile" class="sidebar-icon"></i>
+            <span class="sidebar-text">Diário de Humor</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/sintomas.html" class="sidebar-link" data-feature="sintomas">
+            <i data-lucide="heart" class="sidebar-icon"></i>
+            <span class="sidebar-text">Sintomas</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/tendencias.html" class="sidebar-link active" data-feature="tendencias">
+            <i data-lucide="trending-up" class="sidebar-icon"></i>
+            <span class="sidebar-text">Tendências</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-feature="avaliacoes">
+            <i data-lucide="check-square" class="sidebar-icon"></i>
+            <span class="sidebar-text">Avaliações</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-feature="autocuidado">
+            <i data-lucide="brain" class="sidebar-icon"></i>
+            <span class="sidebar-text">Autocuidado</span>
+          </a>
+        </li>
+      </ul>
+      
+      <!-- Sidebar Footer -->
+      <ul class="sidebar-list sidebar-footer">
+        <li>
+          <a href="#" class="sidebar-link" data-feature="configuracoes">
+            <i data-lucide="settings" class="sidebar-icon"></i>
+            <span class="sidebar-text">Configurações</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="sidebar-link" data-feature="perfil">
+            <i data-lucide="user" class="sidebar-icon"></i>
+            <span class="sidebar-text">Perfil</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="hub-main" role="main">
+    <div class="hub-container">
+      
+      <!-- Título da Página -->
+      <div class="page-header-section">
+        <h1 class="page-title">Tendências e Relatórios</h1>
+        <p class="page-subtitle">Visualize seu progresso e identifique padrões</p>
+      </div>
+      
+      <!-- Tabs de Navegação -->
+      <div class="tabs-container">
+        <button class="tab-btn active" data-tab="humor">Tendências do Humor</button>
+        <button class="tab-btn" data-tab="sintomas">Tendências dos Sintomas</button>
+        <button class="tab-btn" data-tab="insights">Insights</button>
+      </div>
+      
+      <!-- ===== ABA: TENDÊNCIAS DO HUMOR ===== -->
+      <div class="tab-content active" id="tabHumor">
+        <section class="card chart-card">
+          <div class="card-header">
+            <h2 class="card-title">Humor ao Longo do Tempo</h2>
+            <p class="card-subtitle">Seus padrões de humor dos últimos 30 dias</p>
+          </div>
+          
+          <div class="chart-container">
+            <canvas id="moodChart"></canvas>
+          </div>
+          
+          <div class="chart-legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background: #60A5FA;"></div>
+              <span>Linha ascendente = melhoria no humor</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: #F87171;"></div>
+              <span>Linha descendente = declínio no humor</span>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+      <!-- ===== ABA: TENDÊNCIAS DOS SINTOMAS ===== -->
+      <div class="tab-content" id="tabSintomas">
+        <section class="card chart-card">
+          <div class="card-header">
+            <h2 class="card-title">Frequência de Sintomas</h2>
+            <p class="card-subtitle">Frequência de sintomas relatados ao longo do tempo</p>
+          </div>
+          
+          <div class="chart-container">
+            <canvas id="symptomsChart"></canvas>
+          </div>
+          
+          <div class="chart-legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background: #F87171;"></div>
+              <span>Barras menores = menos sintomas</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: #60A5FA;"></div>
+              <span>Compare semanas para ver progresso</span>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+      <!-- ===== ABA: INSIGHTS ===== -->
+      <div class="tab-content" id="tabInsights">
+        
+        <!-- Cards de Insights -->
+        <div class="insights-grid">
+          <div class="insight-card positive" id="insightMood">
+            <div class="insight-icon">
+              <i data-lucide="trending-up"></i>
+            </div>
+            <div class="insight-content">
+              <h3 class="insight-title">Melhoria no Humor</h3>
+              <p class="insight-text">Seu humor médio melhorou 15% nas últimas 2 semanas</p>
+            </div>
+          </div>
+          
+          <div class="insight-card warning" id="insightSleep">
+            <div class="insight-icon">
+              <i data-lucide="moon"></i>
+            </div>
+            <div class="insight-content">
+              <h3 class="insight-title">Padrão de Sono</h3>
+              <p class="insight-text">Problemas de sono são mais frequentes às terças-feiras</p>
+            </div>
+          </div>
+          
+          <div class="insight-card negative" id="insightAnxiety">
+            <div class="insight-icon">
+              <i data-lucide="alert-circle"></i>
+            </div>
+            <div class="insight-content">
+              <h3 class="insight-title">Ansiedade em Alta</h3>
+              <p class="insight-text">Níveis de ansiedade aumentaram 8% esta semana</p>
+            </div>
+          </div>
+          
+          <div class="insight-card positive" id="insightConsistency">
+            <div class="insight-icon">
+              <i data-lucide="check-circle"></i>
+            </div>
+            <div class="insight-content">
+              <h3 class="insight-title">Consistência no Autocuidado</h3>
+              <p class="insight-text">Você completou 85% das suas tarefas de autocuidado</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Resumo Semanal -->
+        <section class="card summary-card">
+          <div class="card-header">
+            <h2 class="card-title">Resumo Semanal</h2>
+            <p class="card-subtitle">Comparação de humor e sintomas</p>
+          </div>
+          
+          <div class="summary-list" id="summaryList">
+            <!-- Será preenchido dinamicamente -->
+          </div>
+        </section>
+        
+        <!-- Recomendações -->
+        <section class="card recommendations-card">
+          <div class="card-header">
+            <h2 class="card-title">Recomendações</h2>
+            <p class="card-subtitle">Sugestões personalizadas baseadas nos seus dados</p>
+          </div>
+          
+          <div class="recommendations-list" id="recommendationsList">
+            <div class="recommendation-item positive">
+              <i data-lucide="check-circle" class="recommendation-icon"></i>
+              <div class="recommendation-content">
+                <h4 class="recommendation-title">Continue com o autocuidado</h4>
+                <p class="recommendation-text">Sua consistência está gerando resultados positivos</p>
+              </div>
+            </div>
+            
+            <div class="recommendation-item warning">
+              <i data-lucide="moon" class="recommendation-icon"></i>
+              <div class="recommendation-content">
+                <h4 class="recommendation-title">Foque na qualidade do sono</h4>
+                <p class="recommendation-text">Considere uma rotina de sono mais consistente</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+      </div>
+      
+    </div>
+  </main>
+  
+  <!-- ===== FOOTER ===== -->
+  <footer class="hub-footer">
+    <div class="footer-content">
+      <p class="footer-text">© 2025 Serenità por Luca Cordella</p>
+    </div>
+  </footer>
+  
+  <!-- ===== MODALS ===== -->
+  
+  <!-- Modal de Emergência -->
+  <div id="emergencyModal" class="modal" hidden aria-modal="true" role="dialog" aria-labelledby="emergencyTitle">
+    <div class="modal-overlay" id="emergencyOverlay"></div>
+    <div class="modal-content emergency-modal">
+      <button class="modal-close" id="closeEmergency" aria-label="Fechar">
+        <i data-lucide="x"></i>
+      </button>
+      
+      <div class="emergency-header">
+        <h2 id="emergencyTitle" class="emergency-title">
+          <i data-lucide="alert-triangle" class="emergency-icon"></i>
+          Ajuda de Emergência
+        </h2>
+        <p class="emergency-subtitle">Se você ou alguém está em perigo, procure ajuda imediatamente.</p>
+      </div>
+      
+      <div class="emergency-body">
+        <div class="emergency-section">
+          <h3 class="emergency-section-title">
+            <i data-lucide="phone" class="section-icon"></i>
+            Canais de Apoio 24h
+          </h3>
+          <ul class="emergency-list">
+            <li class="emergency-item">
+              <span class="emergency-label">CVV – Centro de Valorização da Vida</span>
+              <a href="tel:188" class="emergency-phone">188</a>
+            </li>
+            <li class="emergency-item">
+              <span class="emergency-label">SAMU – Emergência Médica</span>
+              <a href="tel:192" class="emergency-phone">192</a>
+            </li>
+            <li class="emergency-item">
+              <span class="emergency-label">Polícia Militar</span>
+              <a href="tel:190" class="emergency-phone">190</a>
+            </li>
+            <li class="emergency-item">
+              <span class="emergency-label">Bombeiros</span>
+              <a href="tel:193" class="emergency-phone">193</a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="emergency-section">
+          <h3 class="emergency-section-title">
+            <i data-lucide="user" class="section-icon"></i>
+            Contato de Emergência Pessoal
+          </h3>
+          <div class="emergency-personal">
+            <span class="emergency-label">Telefone cadastrado:</span>
+            <span class="emergency-phone-display">XXXXXXX</span>
+            <p class="emergency-hint">Configure nas <a href="#" id="emergencySettingsLink">Configurações</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de Notificação -->
+  <div id="notificationModal" class="modal notification-modal" hidden>
+    <div class="modal-overlay" id="notificationOverlay"></div>
+    <div class="modal-content notification-content">
+      <button class="modal-close" id="closeNotification" aria-label="Fechar">
+        <i data-lucide="x"></i>
+      </button>
+      
+      <h3 class="notification-title">
+        <i data-lucide="bell"></i>
+        Notificações
+      </h3>
+      
+      <ul class="notification-list">
+        <li class="notification-item unread">
+          <i data-lucide="sparkles" class="notification-icon"></i>
+          <div class="notification-text">
+            <p class="notification-message">Você entrou em Tendências e Relatórios</p>
+            <span class="notification-time">Agora</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <script src="../pages/tendencias.js" defer></script>
+  <script>
+    // Inicializar ícones Lucide após o DOM carregar
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
+  
+</body>
+</html>
