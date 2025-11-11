@@ -6,12 +6,10 @@
   function checkAuth() {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
-
     if (!token || !user) {
       window.location.href = '../pages/login.html';
       return null;
     }
-
     try {
       return JSON.parse(user);
     } catch (err) {
@@ -704,7 +702,6 @@
     profileBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       const isHidden = profileDropdown.hasAttribute('hidden');
-
       if (isHidden) {
         profileDropdown.removeAttribute('hidden');
         profileBtn.setAttribute('aria-expanded', 'true');
@@ -768,7 +765,6 @@
     if (notificationModal) {
       notificationModal.removeAttribute('hidden');
       document.body.style.overflow = 'hidden';
-
       const badge = document.querySelector('.notification-badge');
       if (badge) {
         badge.style.display = 'none';
