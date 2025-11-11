@@ -305,9 +305,6 @@
             case 'meditacao':
                 content = createMeditationContent();
                 break;
-            case 'alongamento':
-                content = createStretchContent();
-                break;
             case 'gratidao':
                 content = createGratitudeContent();
                 break;
@@ -495,56 +492,41 @@
     // ===== MEDITAÇÃO GUIADA =====
     
     function createMeditationContent() {
-        return `
-            <div class="practice-modal-header">
-                <h2 class="practice-modal-title">Meditação Guiada</h2>
-                <p class="practice-modal-subtitle">10 minutos de paz e mindfulness</p>
-            </div>
+    return `
+        <div class="practice-modal-header">
+        <h2 class="practice-modal-title">Meditação Guiada para Ansiedade</h2>
+        <p class="practice-modal-subtitle">10 minutos de paz e mindfulness</p>
+        </div>
+        
+        <div class="meditation-content">
+        <div class="meditation-text">
+            <p><strong>Preparação (1 minuto):</strong></p>
+            <p>Encontre uma posição confortável, seja sentado ou deitado. Feche suavemente os olhos ou mantenha um olhar suave e relaxado. Permita que seu corpo se acomode, soltando qualquer tensão nos ombros, mandíbula e mãos.</p>
             
-            <div style="text-align: center; padding: 40px 20px;">
-                <i data-lucide="sparkles" style="width: 80px; height: 80px; color: #A78BFA; margin-bottom: 20px; stroke-width: 1.5;"></i>
-                <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.6; margin-bottom: 24px;">
-                    Encontre uma posição confortável. Feche os olhos suavemente. 
-                    Traga sua atenção para o momento presente, observando sua respiração natural.
-                </p>
-                <p style="color: var(--text-muted); font-size: 14px;">
-                    Funcionalidade completa em desenvolvimento...
-                </p>
-            </div>
+            <p><strong>Conexão com a Respiração (2 minutos):</strong></p>
+            <p>Traga sua atenção para a respiração natural. Observe o ar entrando pelas narinas, enchendo seus pulmões, e depois saindo lentamente. Não force nada, apenas observe. Se sua mente divagar, gentilmente traga-a de volta para a respiração.</p>
             
-            <div class="practice-controls">
-                <button class="btn-control btn-control-secondary" onclick="document.getElementById('closePractice').click()">
-                    Fechar
-                </button>
-            </div>
-        `;
-    }
-    
-    // ===== ALONGAMENTO =====
-    
-    function createStretchContent() {
-        return `
-            <div class="practice-modal-header">
-                <h2 class="practice-modal-title">Alongamento Rápido</h2>
-                <p class="practice-modal-subtitle">5 minutos para relaxar o corpo</p>
-            </div>
+            <p><strong>Reconhecendo a Ansiedade (2 minutos):</strong></p>
+            <p>Observe se há alguma tensão ou desconforto no corpo. Onde a ansiedade se manifesta? No peito, na garganta, no estômago? Reconheça essa sensação sem julgamento. Diga para si mesmo: "Eu reconheço que estou ansioso, e está tudo bem sentir isso agora."</p>
             
-            <div style="text-align: center; padding: 40px 20px;">
-                <i data-lucide="move" style="width: 80px; height: 80px; color: #34D399; margin-bottom: 20px; stroke-width: 1.5;"></i>
-                <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.6; margin-bottom: 24px;">
-                    Sequência de alongamentos suaves para aliviar tensões e melhorar a circulação.
-                </p>
-                <p style="color: var(--text-muted); font-size: 14px;">
-                    Funcionalidade completa em desenvolvimento...
-                </p>
-            </div>
+            <p><strong>Ancorando no Presente (3 minutos):</strong></p>
+            <p>Agora, conte mentalmente 5 coisas que você pode ver ao seu redor (mesmo de olhos fechados, imagine). Depois, 4 coisas que você pode ouvir. Em seguida, 3 coisas que você pode sentir tocando seu corpo. Depois, 2 aromas que você pode perceber. E por fim, 1 coisa pela qual você é grato neste momento.</p>
             
-            <div class="practice-controls">
-                <button class="btn-control btn-control-secondary" onclick="document.getElementById('closePractice').click()">
-                    Fechar
-                </button>
-            </div>
-        `;
+            <p><strong>Afirmações Calmas (1 minuto):</strong></p>
+            <p>Repita mentalmente: "Eu estou seguro agora. Este momento é tudo o que existe. Eu escolho a paz. A ansiedade passa, e eu permaneço."</p>
+            
+            <p><strong>Retorno Gradual (1 minuto):</strong></p>
+            <p>Lentamente, comece a movimentar os dedos das mãos e dos pés. Espreguice-se suavemente. Quando estiver pronto, abra os olhos. Observe como seu corpo se sente agora. Leve essa sensação de calma com você.</p>
+        </div>
+        </div>
+        
+        <div class="practice-controls" style="margin-top: 24px;">
+        <button class="btn-control btn-control-primary" onclick="document.getElementById('closePractice').click()">
+            <i data-lucide="check"></i>
+            Concluir Meditação
+        </button>
+        </div>
+    `;
     }
     
     // ===== GRATIDÃO DO DIA =====

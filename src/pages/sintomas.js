@@ -678,14 +678,6 @@
     });
   }
 
-  // ===== BOTÃO FILTRAR (placeholder) =====
-  const btnFilter = document.getElementById('btnFilter');
-  if (btnFilter) {
-    btnFilter.addEventListener('click', () => {
-      showDevelopmentAlert('Filtro de Histórico');
-    });
-  }
-
   // ===== INICIALIZAÇÃO =====
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
