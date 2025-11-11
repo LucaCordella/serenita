@@ -331,9 +331,6 @@
     const moodData = getMoodData();
     const symptomData = getSymptomData();
     
-    // Atualizar insights dinamicamente baseado nos dados
-    updateInsightCards(moodData, symptomData);
-    
     // Carregar resumo semanal
     loadWeeklySummary(moodData, symptomData);
   }

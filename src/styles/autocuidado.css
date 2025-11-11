@@ -805,11 +805,6 @@ body {
     color: #A78BFA;
 }
 
-.stretch-icon {
-    background: rgba(52,211,153,0.15);
-    color: #34D399;
-}
-
 .gratitude-icon {
     background: rgba(248,113,113,0.15);
     color: #F87171;
@@ -1477,4 +1472,51 @@ body {
         width: 100%;
         justify-content: center;
     }
+}
+
+
+/* Meditation Content Styles */
+.meditation-content {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 20px 0;
+}
+
+.meditation-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.meditation-text p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.meditation-text p strong {
+  color: var(--teal-300);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Scrollbar personalizada para o conteúdo da meditação */
+.meditation-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.meditation-content::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.02);
+  border-radius: 4px;
+}
+
+.meditation-content::-webkit-scrollbar-thumb {
+  background: rgba(167,139,250,0.3);
+  border-radius: 4px;
+}
+
+.meditation-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(167,139,250,0.5);
 }

@@ -216,68 +216,6 @@
             </div>
           </article>
           
-          <!-- Card: Qualidade do Sono -->
-          <article class="assessment-card" data-category="sono">
-            <div class="card-header-assessment">
-              <span class="category-badge sono">Sono</span>
-              <span class="duration">
-                <i data-lucide="clock"></i>
-                3-5 min
-              </span>
-            </div>
-            
-            <h3 class="assessment-title">Índice de Qualidade do Sono</h3>
-            <p class="assessment-desc">Avalie seus padrões e qualidade do sono</p>
-            
-            <div class="assessment-meta">
-              <span class="meta-item">
-                <i data-lucide="list"></i>
-                8 perguntas
-              </span>
-            </div>
-            
-            <div class="card-actions">
-              <button class="btn-details" data-assessment="sono">
-                <i data-lucide="info"></i>
-                Detalhes
-              </button>
-              <button class="btn-start" data-assessment="sono">
-                Fazer Avaliação
-              </button>
-            </div>
-          </article>
-          
-          <!-- Card: Atenção Plena -->
-          <article class="assessment-card" data-category="mindfulness">
-            <div class="card-header-assessment">
-              <span class="category-badge mindfulness">Mindfulness</span>
-              <span class="duration">
-                <i data-lucide="clock"></i>
-                6-8 min
-              </span>
-            </div>
-            
-            <h3 class="assessment-title">Avaliação de Atenção Plena</h3>
-            <p class="assessment-desc">Avalie sua consciência presente e práticas de mindfulness</p>
-            
-            <div class="assessment-meta">
-              <span class="meta-item">
-                <i data-lucide="list"></i>
-                12 perguntas
-              </span>
-            </div>
-            
-            <div class="card-actions">
-              <button class="btn-details" data-assessment="mindfulness">
-                <i data-lucide="info"></i>
-                Detalhes
-              </button>
-              <button class="btn-start" data-assessment="mindfulness">
-                Fazer Avaliação
-              </button>
-            </div>
-          </article>
-          
           <!-- Card: Autocuidado Emocional -->
           <article class="assessment-card" data-category="autocuidado">
             <div class="card-header-assessment">
@@ -320,17 +258,6 @@
           <p class="section-subtitle">Revise os resultados de suas avaliações anteriores e acompanhe seu progresso</p>
         </div>
         
-        <div class="history-filter">
-          <div class="filter-left">
-            <i data-lucide="calendar" class="filter-icon"></i>
-            <span>Últimos 30 dias</span>
-          </div>
-          <button class="btn-export">
-            <i data-lucide="download"></i>
-            Exportar Resultados
-          </button>
-        </div>
-        
         <div class="history-list" id="historyList">
           <!-- Será preenchido via JavaScript -->
         </div>
@@ -349,18 +276,17 @@
   
   <!-- ===== MODALS ===== -->
   
-  <!-- Modal de Detalhes da Avaliação -->
-  <div id="detailsModal" class="modal" hidden>
-    <div class="modal-overlay" id="detailsOverlay"></div>
-    <div class="modal-content details-modal">
-      <button class="modal-close" id="closeDetails" aria-label="Fechar">
-        <i data-lucide="x"></i>
-      </button>
-      
-      <div id="detailsContent">
-        <!-- Conteúdo será inserido via JS -->
+  <!-- Modal de Avaliação -->
+  <div id="assessmentModal" class="modal" hidden>
+      <div class="modal-overlay" id="assessmentOverlay"></div>
+      <div class="modal-content assessment-modal-content">
+          <button class="modal-close" id="closeAssessmentModal" aria-label="Fechar">
+              <i data-lucide="x"></i>
+          </button>
+          <div id="assessmentModalContent">
+              <!-- Conteúdo será inserido via JS -->
+          </div>
       </div>
-    </div>
   </div>
   
   <!-- Modal de Emergência -->
