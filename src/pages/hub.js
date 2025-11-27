@@ -3,26 +3,41 @@
 (function() {
   'use strict';
 
+  let token = null;
+  let currentUser = null;
+
   // ===== AUTENTICAÇÃO =====
+  // ===== AUTENTICAÇÃO (VERSÃO CORRIGIDA) =====
   function checkAuth() {
-    const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
-    if (!token || !user) {
+    token = localStorage.getItem('token'); // Define o token global
+    const userStr = localStorage.getItem('user');
+
+    if (!token || !userStr) {
       window.location.href = '../pages/login.html';
-      return null;
+      return false; // Retorna 'false' se falhar
     }
+
     try {
-      return JSON.parse(user);
+      currentUser = JSON.parse(userStr); // Define o currentUser global
+
+      // ===== A CORREÇÃO ESTÁ AQUI =====
+      // Garante que o contato de emergência (se vier como string do DB) 
+      // seja convertido em objeto.
+      if (currentUser.emergencyContact && typeof currentUser.emergencyContact === 'string') {
+        currentUser.emergencyContact = JSON.parse(currentUser.emergencyContact);
+      }
+      // ==================================
+
+      return true; // Retorna 'true' se sucesso
     } catch (err) {
       console.error('Erro ao parsear dados do usuário:', err);
       localStorage.clear();
       window.location.href = '../pages/login.html';
-      return null;
+      return false;
     }
   }
 
-  const currentUser = checkAuth();
-  if (!currentUser) return;
+  if (!checkAuth()) return; // Para a execução se o checkAuth falhar
 
   // ===== PERSONALIZAÇÃO DO USUÁRIO =====
   const userNameEl = document.getElementById('userName');
@@ -85,6 +100,12 @@
     if (emergencyModal) {
       emergencyModal.removeAttribute('hidden');
       document.body.style.overflow = 'hidden';
+
+      loadEmergencyContact(); // <-- ADICIONE ESTA LINHA
+
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
     }
   }
 
@@ -157,6 +178,20 @@
 
   if (notificationOverlay) {
     notificationOverlay.addEventListener('click', closeNotificationModal);
+  }
+
+  // ===== FIX DO CONTATO DE EMERGÊNCIA =====
+  function loadEmergencyContact() {
+    const contact = currentUser.emergencyContact; // currentUser é global no script
+    const display = document.getElementById('emergencyPhoneDisplay');
+    
+    if (display) {
+        if (contact && contact.name && contact.phone) {
+            display.textContent = contact.phone;
+        } else {
+            display.textContent = 'Não cadastrado';
+        }
+    }
   }
 
   // ===== ALERTAS "EM DESENVOLVIMENTO" =====
