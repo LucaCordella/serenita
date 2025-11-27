@@ -166,7 +166,7 @@
   // Carregar tarefas (MODIFICADO)
   async function loadTasks() {
     try {
-      const res = await fetch('http://localhost:4000/api/entries?type=task', {
+      const res = await fetch('/api/entries?type=task', {
         method: 'GET',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -297,7 +297,7 @@
 
     try {
       // 4. Enviar para a API (PUT /api/entries/:id)
-      const res = await fetch(`http://localhost:4000/api/entries/${entryId}`, {
+      const res = await fetch(`/api/entries/${entryId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -348,7 +348,7 @@
 
     try {
       // 2. Enviar para a API (DELETE /api/entries/:id)
-      const res = await fetch(`http://localhost:4000/api/entries/${entryId}`, {
+      const res = await fetch(`/api/entries/${entryId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -727,7 +727,7 @@
 
   // Função genérica para salvar uma 'entry' (gratidão, prática, etc.)
   async function saveEntryAPI(type, data) {
-    const res = await fetch('http://localhost:4000/api/entries', {
+    const res = await fetch('/api/entries', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

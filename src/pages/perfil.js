@@ -204,7 +204,7 @@
   // Função helper principal para salvar CADA mudança na API
   async function updateProfileOnAPI(updatedUser) {
     try {
-      const res = await fetch(`http://localhost:4000/api/auth/profile`, {
+      const res = await fetch(`/api/auth/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -391,7 +391,7 @@
   async function loadStatistics() {
     try {
       // 1. Carregar Registros de Humor (da API)
-      const moodRes = await fetch('http://localhost:4000/api/entries?type=mood', {
+      const moodRes = await fetch('/api/entries?type=mood', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const moodEntries = await moodRes.json();
@@ -400,7 +400,7 @@
       }
 
       // 2. Carregar Sintomas (da API)
-      const sympRes = await fetch('http://localhost:4000/api/entries?type=symptom', {
+      const sympRes = await fetch('/api/entries?type=symptom', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const symptomEntries = await sympRes.json();
@@ -409,7 +409,7 @@
       }
 
       // 3. Carregar Tarefas (da API)
-      const taskRes = await fetch('http://localhost:4000/api/entries?type=task', {
+      const taskRes = await fetch('/api/entries?type=task', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const taskEntries = await taskRes.json();

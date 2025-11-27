@@ -188,7 +188,7 @@
   // Salvar na API (Função MODIFICADA)
   async function saveMoodEntry(entryData) {
     // A rota /api/entries é protegida, precisamos enviar o token
-    const res = await fetch('http://localhost:4000/api/entries', {
+    const res = await fetch('/api/entries', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -259,7 +259,7 @@
   async function loadHistory() {
     try {
       // Buscar entradas da API (Substitui localStorage.getItem)
-      const res = await fetch('http://localhost:4000/api/entries?type=mood', {
+      const res = await fetch('/api/entries?type=mood', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}` // Envia o token

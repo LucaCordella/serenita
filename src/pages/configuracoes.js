@@ -141,7 +141,7 @@
 
   // Salvar/Atualizar perfil na API
   async function updateProfileOnAPI(updatedUser) {
-    const res = await fetch(`http://localhost:4000/api/auth/profile`, {
+    const res = await fetch(`/api/auth/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

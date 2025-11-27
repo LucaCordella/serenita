@@ -201,7 +201,7 @@
 
   // Salvar na API (MODIFICADO)
   async function saveSymptomEntry(entryData) {
-    const res = await fetch('http://localhost:4000/api/entries', {
+    const res = await fetch('/api/entries', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -267,7 +267,7 @@
   async function loadHistory() {
     try {
       // Buscar entradas da API
-      const res = await fetch('http://localhost:4000/api/entries?type=symptom', {
+      const res = await fetch('/api/entries?type=symptom', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`, // Envia o token

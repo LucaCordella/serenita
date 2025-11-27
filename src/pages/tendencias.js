@@ -92,7 +92,7 @@
   async function getMoodData() {
     if (moodDataCache) return moodDataCache; // Retorna do cache se já buscou
     
-    const res = await fetch('http://localhost:4000/api/entries?type=mood', {
+    const res = await fetch('/api/entries?type=mood', {
         method: 'GET',
         headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -104,7 +104,7 @@
   async function getSymptomData() {
     if (symptomDataCache) return symptomDataCache; // Retorna do cache
 
-    const res = await fetch('http://localhost:4000/api/entries?type=symptom', {
+    const res = await fetch('/api/entries?type=symptom', {
         method: 'GET',
         headers: { 'Authorization': `Bearer ${token}` }
     });

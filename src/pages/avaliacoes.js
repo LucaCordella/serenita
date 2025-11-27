@@ -478,7 +478,7 @@
 
   // Salvar na API (MODIFICADO)
   async function saveAssessmentResult(resultData) {
-    const res = await fetch('http://localhost:4000/api/entries', {
+    const res = await fetch('/api/entries', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -533,7 +533,7 @@
   async function loadHistory() {
     try {
       // 1. Buscar dados da API
-      const res = await fetch('http://localhost:4000/api/entries?type=assessment', {
+      const res = await fetch('/api/entries?type=assessment', {
           method: 'GET',
           headers: { 'Authorization': `Bearer ${token}` }
       });
