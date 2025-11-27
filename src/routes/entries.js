@@ -1,95 +1,106 @@
-// src/routes/entries.js
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
+const db = require('../db'); // Importa o pool do PostgreSQL
 const authenticateToken = require('../middleware/auth');
 
-// create entry (Sem alterações) [cite: 139-152]
-router.post('/', authenticateToken, (req, res) => {
+// Criar uma nova entrada (Create Entry)
+router.post('/', authenticateToken, async (req, res) => {
   const userId = req.user.userId;
-  const { type, data } = req.body; // data should be an object
+  const { type, data } = req.body;
+  
+  // Converte o objeto de dados para uma string JSON para armazenar no banco
   const dataStr = JSON.stringify(data || {});
 
-  const stmt = db.prepare('INSERT INTO entries (user_id, type, data) VALUES (?, ?, ?)');
-  stmt.run([userId, type, dataStr], function (err) {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ message: 'DB error' });
-    }
-    // Retorna o objeto completo que foi criado (incluindo o novo ID)
-    res.status(201).json({ id: this.lastID, user_id: userId, type, data: data, created_at: new Date().toISOString() });
-  });
+  // Query SQL para inserir dados. No PostgreSQL usamos $1, $2, etc.
+  const query = 'INSERT INTO entries (user_id, type, data) VALUES ($1, $2, $3) RETURNING id, created_at';
+  
+  try {
+    // Executa a query passando os valores
+    const result = await db.query(query, [userId, type, dataStr]);
+    const newEntry = result.rows[0];
+    
+    // Retorna a entrada criada com sucesso
+    res.status(201).json({ 
+        id: newEntry.id, 
+        user_id: userId, 
+        type, 
+        data: data, 
+        created_at: newEntry.created_at 
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'DB error' });
+  }
 });
 
-// list entries (Sem alterações) [cite: 153-170]
-router.get('/', authenticateToken, (req, res) => {
+// Listar entradas (List Entries)
+router.get('/', authenticateToken, async (req, res) => {
   const userId = req.user.userId;
   const { type } = req.query;
 
-  const sql = type
-    ? 'SELECT * FROM entries WHERE user_id = ? AND type = ? ORDER BY created_at DESC'
-    : 'SELECT * FROM entries WHERE user_id = ? ORDER BY created_at DESC';
-  const params = type ? [userId, type] : [userId];
+  let query = 'SELECT * FROM entries WHERE user_id = $1 ORDER BY created_at DESC';
+  let params = [userId];
 
-  db.all(sql, params, (err, rows) => {
-    if (err) return res.status(500).json({ message: 'DB error' });
-    // Precisamos fazer o parse do JSON que está na coluna 'data'
-    const results = rows.map(r => ({ ...r, data: JSON.parse(r.data) }));
-    res.json(results);
-  });
-});
-
-// ===== NOVA ROTA: UPDATE Entry (PUT) =====
-// Usada para marcar tarefas como concluídas
-router.put('/:id', authenticateToken, (req, res) => {
-  const userId = req.user.userId;
-  const entryId = req.params.id;
-  const { data } = req.body; // O frontend enviará o objeto 'data' atualizado
-
-  if (!data) {
-    return res.status(400).json({ message: 'Dados ausentes' });
+  // Se um tipo específico foi solicitado, filtra por ele
+  if (type) {
+    query = 'SELECT * FROM entries WHERE user_id = $1 AND type = $2 ORDER BY created_at DESC';
+    params = [userId, type];
   }
 
+  try {
+    const result = await db.query(query, params);
+    // Converte a string JSON de volta para um objeto JavaScript
+    const results = result.rows.map(r => ({ ...r, data: JSON.parse(r.data) }));
+    res.json(results);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'DB error' });
+  }
+});
+
+// Atualizar uma entrada (Update Entry)
+router.put('/:id', authenticateToken, async (req, res) => {
+  const userId = req.user.userId;
+  const entryId = req.params.id;
+  const { data } = req.body;
+
+  if (!data) return res.status(400).json({ message: 'Dados ausentes' });
   const dataStr = JSON.stringify(data);
 
-  // O 'user_id = ?' garante que um usuário não possa atualizar a entrada de outro
-  const sql = 'UPDATE entries SET data = ? WHERE id = ? AND user_id = ?';
-  
-  db.run(sql, [dataStr, entryId, userId], function (err) {
-    if (err) {
-      console.error('Erro ao atualizar entrada:', err);
-      return res.status(500).json({ message: 'DB error' });
-    }
-    if (this.changes === 0) {
-      // Isso pode acontecer se o ID não existir ou não pertencer ao usuário
+  const query = 'UPDATE entries SET data = $1 WHERE id = $2 AND user_id = $3';
+
+  try {
+    const result = await db.query(query, [dataStr, entryId, userId]);
+    
+    // Verifica se alguma linha foi afetada (se a entrada existia e pertencia ao usuário)
+    if (result.rowCount === 0) {
       return res.status(404).json({ message: 'Entrada não encontrada ou não autorizada' });
     }
     res.json({ message: 'Entrada atualizada com sucesso' });
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'DB error' });
+  }
 });
 
-
-// ===== NOVA ROTA: DELETE Entry =====
-// Usada para excluir tarefas
-router.delete('/:id', authenticateToken, (req, res) => {
+// Deletar uma entrada (Delete Entry)
+router.delete('/:id', authenticateToken, async (req, res) => {
   const userId = req.user.userId;
   const entryId = req.params.id;
 
-  // O 'user_id = ?' garante que um usuário não possa deletar a entrada de outro
-  const sql = 'DELETE FROM entries WHERE id = ? AND user_id = ?';
+  const query = 'DELETE FROM entries WHERE id = $1 AND user_id = $2';
 
-  db.run(sql, [entryId, userId], function (err) {
-    if (err) {
-      console.error('Erro ao deletar entrada:', err);
-      return res.status(500).json({ message: 'DB error' });
-    }
-    if (this.changes === 0) {
-      // Isso pode acontecer se o ID não existir ou não pertencer ao usuário
+  try {
+    const result = await db.query(query, [entryId, userId]);
+    
+    if (result.rowCount === 0) {
       return res.status(404).json({ message: 'Entrada não encontrada ou não autorizada' });
     }
     res.json({ message: 'Entrada deletada com sucesso' });
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'DB error' });
+  }
 });
-
 
 module.exports = router;
